@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "del": "^3.0.0",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-file": "^0.3.0",
     "gulp-map": "0.0.2",
     "gulp-shell": "^0.6.3",

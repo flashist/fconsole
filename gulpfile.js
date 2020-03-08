@@ -1,23 +1,22 @@
 var gulp = require("gulp");
 var requireDir = require("require-dir");
-var shell = require('gulp-shell');
-var runSequence = require('run-sequence');
 
 var tasks = requireDir("./gulp/tasks");
 
 gulp.task(
     'build',
-    function(callback) {
-        runSequence(
-            "clean",
-            // "generate-definitions",
-            "copy-to-dist",
-            "compile",
-
-            callback
-        );
-    }
+    gulp.series(
+        "clean",
+        // "generate-definitions",
+        "copy-to-dist",
+        "compile"
+    )
 );
 
 // Default
-gulp.task("default", ["build"]);
+gulp.task(
+    "default",
+    gulp.series(
+        "build"
+    )
+);
