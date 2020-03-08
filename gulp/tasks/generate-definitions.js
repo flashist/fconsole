@@ -5,7 +5,7 @@ var map = require("gulp-map");
 
 gulp.task(
     "generate-definitions",
-    (cb) => {
+    async (cb) => {
 
         // console.log("START! generate-definitions.js");
 
@@ -34,13 +34,15 @@ gulp.task(
 
         var outFileName = argv.outFile + ".ts";
         // console.log("outFileName: " + outFileName);
+        // Remove prev index file
+        await fs.unlinkSync(basePath + outFileName);
 
         var resultDeclarationText = "";
 
         // console.log("Imported files:");
-        var tempSettings = [argv.src + "**/*.ts", "!./**/*.d.ts"];
+        var tempSettings = [argv.src + "**/*.ts", "!./!**/!*.d.ts"];
 
-        return gulp.src(tempSettings)
+        gulp.src(tempSettings)
                 .pipe(
                     map(
                         (file) => {
@@ -60,12 +62,17 @@ gulp.task(
                 .on(
                     "end",
                     () => {
-                        /*fs.writeFile(
-                            argv.outDir + outFileName,
-                            resultDeclarationText
-                        );*/
                         console.log("Declarations: ");
                         console.log(resultDeclarationText);
+
+                        fs.writeFile(
+                            argv.outDir + outFileName,
+                            resultDeclarationText,
+                            () => {
+                                console.log("WRITE COMPLETE!");
+                                cb();
+                            }
+                        );
                     }
                 );
     }
