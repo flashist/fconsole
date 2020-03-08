@@ -23,8 +23,8 @@
     "console",
     "hierarchy"
   ],
-  "main": "index.js",
-  "typings": "index.d.ts",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "gulp"
   },
@@ -39,6 +39,7 @@
     "gulp-shell": "^0.6.3",
     "gulp-typescript": "^3.2.4",
     "map-stream": "0.0.7",
+    "native": "^0.3.3",
     "require-dir": "^0.3.2",
     "rimraf": "^2.6.1",
     "run-sequence": "^1.2.2",
