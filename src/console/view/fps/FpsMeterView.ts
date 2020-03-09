@@ -10,7 +10,6 @@ export class FpsMeterView extends FContainer {
     protected prevTime: number = 0;
     protected time: number = 0;
     protected stepFps: number = 0;
-    protected fps: number = 0;
     //
     protected fpsValues: number[] = [];
     protected cumulativeFpsValue: number = 0;
@@ -65,6 +64,9 @@ export class FpsMeterView extends FContainer {
         }
         this.fpsValues.push(this.stepFps);
         this.cumulativeFpsValue += this.stepFps;
+        if (!this.cumulativeFpsValue) {
+            this.cumulativeFpsValue = 0;
+        }
 
         this.field.text = StringTools.substituteList(
             FC.config.localization.fpsText,
