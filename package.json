@@ -26,7 +26,8 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "gulp"
+    "build": "gulp",
+    "publish:next:patch": "npm version patch && npm run build && npm publish"
   },
   "dependencies": {
     "fsuite": "0.x"
