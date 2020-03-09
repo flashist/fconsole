@@ -64,7 +64,7 @@ export class FpsMeterView extends FContainer {
         }
         this.fpsValues.push(this.stepFps);
         this.cumulativeFpsValue += this.stepFps;
-        if (!this.cumulativeFpsValue) {
+        if (!this.cumulativeFpsValue || this.cumulativeFpsValue < 0) {
             this.cumulativeFpsValue = 0;
         }
 
