@@ -87,10 +87,10 @@ export class DisplayListView extends BaseConsoleView {
             {title: FC.config.localization.closeBtnTooltipTitle}
         );
 
-        this.captureBtn.tooltipData.text = FC.config.localization.displayListCapturedKeyText;
+        this.captureKeyButton.tooltipData.text = FC.config.localization.displayListCapturedKeyText;
 
         if (FC.config.displayListSettings.defaultCaptureKey) {
-            this.captureBtn.captureKey = FC.config.displayListSettings.defaultCaptureKey;
+            this.captureKeyButton.captureKey = FC.config.displayListSettings.defaultCaptureKey;
         }
     }
 
@@ -179,8 +179,8 @@ export class DisplayListView extends BaseConsoleView {
         }
     }
 
-    protected onCaptureKey(): void {
-        super.onCaptureKey();
+    protected onCapture(): void {
+        super.onCapture();
 
         const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
         let underPointData: IFDisplayObjectUnderPointVO = FDisplayTools.getObjectsUnderPoint(
@@ -190,7 +190,7 @@ export class DisplayListView extends BaseConsoleView {
         );
 
         // Log the parsed structure
-        console.group("Display list structure:");
+        console.group(FC.config.localization.displayListStructureLogTitle);
         this.groupLogUnderPointData(underPointData);
         console.groupEnd();
     }
