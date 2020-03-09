@@ -247,7 +247,7 @@ export class DisplayListView extends BaseConsoleView {
         if (data && data.object) {
             let tempName: string = data.object.toString();
             if (data.object.constructor) {
-                tempName = ObjectTools.getConstructorName(data.object);
+                tempName = ObjectTools.getConstructorName(data.object.constructor);
             }
 
             result += prefix + " " + tempName;
