@@ -129,7 +129,7 @@ export class FC {
 
         if (moveToMouse) {
             const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
-            let localPos: Point = view.view.parent.toLocal(
+            let localPos = view.view.parent.toLocal(
                 new Point(globalPos.x + 1, globalPos.y + 1)
             );
             view.view.x = localPos.x;
