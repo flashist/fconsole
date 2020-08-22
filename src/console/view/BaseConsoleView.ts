@@ -1,5 +1,5 @@
-import {BaseObject} from "fcore";
-import {InteractiveEvent, DisplayObjectContainer, Graphics, FLabel, DragHelper, DragHelperEvent, FContainer} from "fsuite";
+import {BaseObject} from "@flashist/fcore";
+import {InteractiveEvent, DisplayObjectContainer, Graphics, FLabel, DragHelper, DragHelperEvent, FContainer} from "@flashist/flibs";
 
 import {FC} from "../FC";
 import {BaseConsoleButton} from "./BaseConsoleButton";

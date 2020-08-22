@@ -1,7 +1,7 @@
 import {BaseConsoleView} from "./BaseConsoleView";
 import {FC} from "../FC";
 import {BaseConsoleButton} from "./BaseConsoleButton";
-import {InteractiveEvent} from "fsuite";
+import {InteractiveEvent} from "@flashist/flibs";
 import {FpsMeterView} from "./fps/FpsMeterView";
 
 export class ConsoleView extends BaseConsoleView {

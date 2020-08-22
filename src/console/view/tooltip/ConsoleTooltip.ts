@@ -4,7 +4,7 @@ import {
     FLabel,
     Align,
     FContainer
-} from "fsuite";
+} from "@flashist/flibs";
 import {BaseTooltip} from "../../../tooltip/BaseTooltip";
 import {FC} from "../../FC";
 

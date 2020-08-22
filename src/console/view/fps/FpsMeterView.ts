@@ -1,5 +1,5 @@
-import {StringTools} from "fcore";
-import {FContainer, FLabel, Graphics} from "fsuite";
+import {StringTools} from "@flashist/fcore";
+import {FContainer, FLabel, Graphics} from "@flashist/flibs";
 import {FC} from "../../FC";
 
 export class FpsMeterView extends FContainer {

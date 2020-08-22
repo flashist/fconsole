@@ -1,4 +1,4 @@
-import {EventListenerHelper, KeyboardTools, Logger, ObjectTools} from "fcore";
+import {EventListenerHelper, KeyboardTools, Logger, ObjectTools} from "@flashist/fcore";
 import {
     InputManager,
     InputManagerEvent,
@@ -8,7 +8,7 @@ import {
     DisplayObjectContainer,
     DisplayTools,
     FContainer
-} from "fsuite";
+} from "@flashist/flibs";
 
 import {ConsoleView} from "./view/ConsoleView";
 import {BaseConsoleView} from "./view/BaseConsoleView";

@@ -1,4 +1,4 @@
-import {KeyboardTools, ObjectTools} from "fcore";
+import {KeyboardTools, ObjectTools} from "@flashist/fcore";
 import {
     FLabel,
     Point,
@@ -8,8 +8,8 @@ import {
     IFDisplayObjectUnderPointVO,
     FDisplayTools,
     FApp
-} from "fsuite";
-import {InputManager, InputManagerEvent, InputManagerEventData} from "fsuite";
+} from "@flashist/flibs";
+import {InputManager, InputManagerEvent, InputManagerEventData} from "@flashist/flibs";
 
 import {BaseConsoleView} from "./BaseConsoleView";
 import {BaseConsoleButton} from "./BaseConsoleButton";

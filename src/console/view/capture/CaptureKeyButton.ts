@@ -1,6 +1,6 @@
 import {BaseConsoleButton} from "../BaseConsoleButton";
-import {InputManager, InputManagerEvent, InputManagerEventData} from "fsuite";
-import {KeyboardTools, StringTools} from "fcore";
+import {InputManager, InputManagerEvent, InputManagerEventData} from "@flashist/flibs";
+import {KeyboardTools, StringTools} from "@flashist/fcore";
 import {CaptuerKeyButtonEvent} from "./CaptureKeyButtonEvent";
 import {FC} from "../../FC";
 

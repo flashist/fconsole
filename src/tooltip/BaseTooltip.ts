@@ -1,5 +1,5 @@
-import {DisplayObjectContainer, FContainer} from "fsuite";
-import {BaseObject} from "fcore";
+import {DisplayObjectContainer, FContainer} from "@flashist/flibs";
+import {BaseObject} from "@flashist/fcore";
 
 import {ITooltipData} from "./ITooltipData";
 

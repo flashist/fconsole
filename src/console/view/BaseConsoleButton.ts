@@ -1,10 +1,10 @@
-import {BaseObject} from "fcore";
+import {BaseObject} from "@flashist/fcore";
 import {
     DisplayObjectContainer,
     FLabel,
     InteractiveEvent,
     FContainer
-} from "fsuite";
+} from "@flashist/flibs";
 
 import {FC} from "../FC";
 import {ITooltipData} from "../../tooltip/ITooltipData";
