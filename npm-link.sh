@@ -5,13 +5,17 @@ if [ -z "$1" ]
     exit 1
 fi
 
-curFolderName=${PWD##*/}
-echo "Current folder name $curFolderName"
+curPackageName=$(eval 'cut -d "=" -f 2 <<< $(npm run env | grep "npm_package_name")')
+echo "Current package name $curPackageName"
 
 echo "Adding the current folder is added as a global npm link"
 cd dist/
 npm link
 
-echo "Moving to the target folder and add the global npm link into it"
-cd "../../${1}/node_modules/"
-npm link "$curFolderName"
+# Go back to the root of package
+cd "../";
+# Go to the target folder
+cd "${1}"
+
+echo "Link packakge $curPackageName in the target folder"
+npm link "$curPackageName"
