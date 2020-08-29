@@ -23,8 +23,8 @@
     "console",
     "hierarchy"
   ],
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "index.js",
+  "typings": "index.d.ts",
   "scripts": {
     "build": "gulp",
     "publish:patch": "npm version patch && npm run build && npm publish",
