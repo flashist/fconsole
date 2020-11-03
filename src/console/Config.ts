@@ -1,3 +1,5 @@
+import {KeyCodes} from "@flashist/flibs";
+
 export class Config {
 
     public password: string = "`";
@@ -15,6 +17,11 @@ export class Config {
         captureKeyBtnNormalLabel: "Capture key: {0}",
         captureKeyBtnPressedLabel: "Press a key",
         captureKeyBtnNoKeyHelpText: "(click to add)",
+
+        pauseUpdateKeyBtnTooltipTitle: "Assign a key to pause display list data update",
+        pauseUpdateKeyBtnNormalLabel: "Pause key: {0}",
+        pauseUpdateKeyBtnPressedLabel: "Press a key",
+        pauseUpdateKeyBtnNoKeyHelpText: "(click to add)",
 
         displayListTitle: "Display List Inspector",
         displayListCapturedKeyText: "Press an assinged key\nto add display list hierarchy\nto the browser console",
@@ -37,6 +44,14 @@ export class Config {
     public console = {
         aboveAll: true,
         defaultVisible: false
+    };
+
+    public captureKey = {
+        defaultCode: KeyCodes.C
+    };
+
+    public pauseCode = {
+        defaultCode: KeyCodes.SHIFT
     };
 
     public btnSettings = {

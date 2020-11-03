@@ -1,16 +1,13 @@
 import {BaseConsoleButton} from "../BaseConsoleButton";
 import {InputManager, InputManagerEvent, InputManagerEventData} from "@flashist/flibs";
 import {KeyboardTools, StringTools} from "@flashist/fcore";
-import {CaptureKeyButtonEvent} from "./CaptureKeyButtonEvent";
+
 import {FC} from "../../FC";
+import {PauseKeyButtonEvent} from "./PauseKeyButtonEvent";
 
-export class CaptureKeyButton extends BaseConsoleButton {
+export class PauseKeyButton extends BaseConsoleButton {
 
-    /*private static CAPTURE_LABEL_FIRST_PART:string = "Capture key:";
-    private static NO_CAPTURE_KEY_TEXT:string = "(click to add)";
-    private static CLICKED_HELP_TEXT:string = "Press a key";*/
-
-    private _captureKey: string;
+    private _pauseKey: string;
 
     private _isClicked: boolean;
 
@@ -23,6 +20,12 @@ export class CaptureKeyButton extends BaseConsoleButton {
             InputManagerEvent.KEY_PRESS,
             this.onKeyPress
         );
+
+        this.eventListenerHelper.addEventListener(
+            InputManager.instance,
+            InputManagerEvent.KEY_UP,
+            this.onKeyUp
+        );
     }
 
 
@@ -31,7 +34,7 @@ export class CaptureKeyButton extends BaseConsoleButton {
 
         this.isClicked = !this.isClicked;
         if (!this.isClicked) {
-            this.captureKey = null;
+            this.pauseKey = null;
         }
     }
 
@@ -39,15 +42,21 @@ export class CaptureKeyButton extends BaseConsoleButton {
         if (this.view.worldVisible) {
             if (this.isClicked) {
                 this.isClicked = false;
-                this.captureKey = KeyboardTools.getCharFromKeyPressEvent(data.nativeEvent);
+                this.pauseKey = KeyboardTools.getCharFromKeyPressEvent(data.nativeEvent);
 
                 this.commitData();
 
             } else if (this.captureCode) {
                 if (KeyboardTools.getCharCodeFromKeyPressEvent(data.nativeEvent) == this.captureCode) {
-                    this.dispatchEvent(CaptureKeyButtonEvent.CAPTURE_KEY_PRESS);
+                    this.dispatchEvent(PauseKeyButtonEvent.PAUSE_KEY_PRESS);
                 }
             }
+        }
+    }
+
+    protected onKeyUp(data: InputManagerEventData): void {
+        if (KeyboardTools.getCharCodeFromKeyPressEvent(data.nativeEvent) == this.captureCode) {
+            this.dispatchEvent(PauseKeyButtonEvent.PAUSE_KEY_UP);
         }
     }
 
@@ -58,10 +67,10 @@ export class CaptureKeyButton extends BaseConsoleButton {
         if (this.isClicked) {
             this.text = FC.config.localization.captureKeyBtnPressedLabel;
 
-        } else if (this.captureKey) {
+        } else if (this.pauseKey) {
             this.text = StringTools.substituteList(
                 FC.config.localization.captureKeyBtnNormalLabel,
-                this.captureKey
+                this.pauseKey
             );
 
         } else {
@@ -92,22 +101,22 @@ export class CaptureKeyButton extends BaseConsoleButton {
         this.commitData();
     }
 
-    public get captureKey(): string {
-        return this._captureKey;
+    public get pauseKey(): string {
+        return this._pauseKey;
     }
-    public set captureKey(value: string) {
-        if (value === this._captureKey) {
+    public set pauseKey(value: string) {
+        if (value === this._pauseKey) {
             return;
         }
 
-        this._captureKey = value;
+        this._pauseKey = value;
 
         this.commitData();
     }
 
     private get captureCode(): number {
-        if (this.captureKey) {
-            return this.captureKey.charCodeAt(0);
+        if (this.pauseKey) {
+            return this.pauseKey.charCodeAt(0);
         } else {
             return undefined;
         }

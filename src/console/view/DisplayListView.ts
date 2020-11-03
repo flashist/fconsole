@@ -14,6 +14,8 @@ import {InputManager, InputManagerEvent, InputManagerEventData} from "@flashist/
 import {BaseConsoleView} from "./BaseConsoleView";
 import {BaseConsoleButton} from "./BaseConsoleButton";
 import {FC} from "../FC";
+import {PauseKeyButtonEvent} from "./pause/PauseKeyButtonEvent";
+import {PauseKeyButton} from "./pause/PauseKeyButton";
 
 export class DisplayListView extends BaseConsoleView {
 
@@ -37,6 +39,11 @@ export class DisplayListView extends BaseConsoleView {
 
     private moveObjectIndex: number;
 
+    private paused: boolean;
+
+    protected pauseKeyBtn: PauseKeyButton;
+    private _pauseVisible: boolean;
+
     constructor() {
         super();
     }
@@ -45,6 +52,7 @@ export class DisplayListView extends BaseConsoleView {
         super.construction();
 
         this.captureVisible = true;
+        this.pauseVisible = true;
 
         this.lastCheckedPos = new Point();
         this.moveObjectIndex = -1;
@@ -52,6 +60,12 @@ export class DisplayListView extends BaseConsoleView {
         this.titleLabel.text = FC.config.localization.displayListTitle;
 
         this.insideContentCont.visible = true;
+
+        this.pauseKeyBtn = new PauseKeyButton();
+        this.insideContentCont.addChild(this.pauseKeyBtn.view);
+        this.pauseKeyBtn.view.y = 5;
+        //
+        this.pauseKeyBtn.tooltipData = {title: FC.config.localization.pauseUpdateKeyBtnTooltipTitle};
 
         this.additionalInfoBtn = new BaseConsoleButton();
         this.insideContentCont.addChild(this.additionalInfoBtn.view);
@@ -61,7 +75,8 @@ export class DisplayListView extends BaseConsoleView {
         };
         this.additionalInfoBtn.field.size = FC.config.btnSettings.smallSize;
         //
-        this.additionalInfoBtn.view.y = 5;
+        // this.additionalInfoBtn.view.y = 5;
+        this.additionalInfoBtn.view.y = this.pauseKeyBtn.view.y + this.pauseKeyBtn.view.height + 5;
 
         this.moveHelperBtn = new BaseConsoleButton();
         this.insideContentCont.addChild(this.moveHelperBtn.view);
@@ -87,10 +102,10 @@ export class DisplayListView extends BaseConsoleView {
             {title: FC.config.localization.closeBtnTooltipTitle}
         );
 
-        this.captureKeyButton.tooltipData.text = FC.config.localization.displayListCapturedKeyText;
+        this.captureKeyBtn.tooltipData.text = FC.config.localization.displayListCapturedKeyText;
 
         if (FC.config.displayListSettings.defaultCaptureKey) {
-            this.captureKeyButton.captureKey = FC.config.displayListSettings.defaultCaptureKey;
+            this.captureKeyBtn.captureKey = FC.config.displayListSettings.defaultCaptureKey;
         }
     }
 
@@ -139,6 +154,19 @@ export class DisplayListView extends BaseConsoleView {
             InputManagerEvent.KEY_DOWN,
             this.onKeyDown
         );
+
+
+        this.eventListenerHelper.addEventListener(
+            this.pauseKeyBtn,
+            PauseKeyButtonEvent.PAUSE_KEY_PRESS,
+            this.onPauseStart
+        );
+
+        this.eventListenerHelper.addEventListener(
+            this.pauseKeyBtn,
+            PauseKeyButtonEvent.PAUSE_KEY_UP,
+            this.onPauseEnd
+        );
     }
 
     protected removeListeners(): void {
@@ -148,10 +176,11 @@ export class DisplayListView extends BaseConsoleView {
     }
 
     private onTick(): void {
-        if (this.visible) {
-            /*if (this.lastCheckedPos.x != EngineAdapter.instance.globalMouseX ||
-             this.lastCheckedPos.y != EngineAdapter.instance.globalMouseY) {*/
+        if (this.paused) {
+            return;
+        }
 
+        if (this.visible) {
             const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
             this.lastCheckedPos.x = globalPos.x;
             this.lastCheckedPos.y = globalPos.y;
@@ -193,6 +222,14 @@ export class DisplayListView extends BaseConsoleView {
         console.group(FC.config.localization.displayListStructureLogTitle);
         this.groupLogUnderPointData(underPointData);
         console.groupEnd();
+    }
+
+    protected onPauseStart(): void {
+        this.paused = true;
+    }
+
+    protected onPauseEnd(): void {
+        this.paused = false;
     }
 
     protected onAdditionalInfo(): void {
@@ -401,7 +438,6 @@ export class DisplayListView extends BaseConsoleView {
     get isAdditionalInfoEnabled(): boolean {
         return this._isAdditionalInfoEnabled;
     }
-
     set isAdditionalInfoEnabled(value: boolean) {
         if (value == this._isAdditionalInfoEnabled) {
             return;
@@ -416,7 +452,6 @@ export class DisplayListView extends BaseConsoleView {
     get isMoveHelperEnabled(): boolean {
         return this._isMoveHelperEnabled;
     }
-
     set isMoveHelperEnabled(value: boolean) {
         if (value == this._isMoveHelperEnabled) {
             return;
@@ -431,6 +466,8 @@ export class DisplayListView extends BaseConsoleView {
     protected commitData(): void {
         super.commitData();
 
+        this.pauseKeyBtn.view.visible = this.pauseVisible;
+
         if (!this.visible) {
             this.isAdditionalInfoEnabled = false;
             this.isMoveHelperEnabled = false;
@@ -438,15 +475,15 @@ export class DisplayListView extends BaseConsoleView {
 
         if (this.additionalInfoBtn) {
             if (this.isAdditionalInfoEnabled) {
-                this.additionalInfoBtn.label = FC.config.localization.additionalInfoBtnPressedLabel;
+                this.additionalInfoBtn.text = FC.config.localization.additionalInfoBtnPressedLabel;
             } else {
-                this.additionalInfoBtn.label = FC.config.localization.additionalInfoBtnNormalLabel;
+                this.additionalInfoBtn.text = FC.config.localization.additionalInfoBtnNormalLabel;
             }
         }
 
         if (this.moveHelperBtn) {
             if (this.isMoveHelperEnabled) {
-                this.moveHelperBtn.label = FC.config.localization.moveHelperBtnPressedLabel;
+                this.moveHelperBtn.text = FC.config.localization.moveHelperBtnPressedLabel;
 
                 // Select an object (if index is -1, it means that selection is reset)
                 if (this.moveObjectIndex < -1 || this.moveObjectIndex >= this.lastAllObjectsUnderPointList.length) {
@@ -462,7 +499,7 @@ export class DisplayListView extends BaseConsoleView {
                 }
 
             } else {
-                this.moveHelperBtn.label = FC.config.localization.moveHelperBtnNormalLabel;
+                this.moveHelperBtn.text = FC.config.localization.moveHelperBtnNormalLabel;
                 // Reset selection
                 this.moveObject = null;
                 this.moveObjectIndex = -1;
@@ -475,5 +512,18 @@ export class DisplayListView extends BaseConsoleView {
             this.prevMoveObject = this.moveObject;
 
         }
+    }
+
+    get pauseVisible(): boolean {
+        return this._pauseVisible;
+    }
+    set pauseVisible(value: boolean) {
+        if (value == this.pauseVisible) {
+            return;
+        }
+
+        this._pauseVisible = value;
+
+        this.commitData();
     }
 }

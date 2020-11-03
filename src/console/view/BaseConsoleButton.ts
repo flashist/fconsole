@@ -14,7 +14,7 @@ export class BaseConsoleButton extends BaseObject {
     public view: DisplayObjectContainer;
     public field: FLabel;
 
-    private _label: string = "";
+    private _text: string = "";
 
     public tooltipData: ITooltipData;
 
@@ -89,7 +89,7 @@ export class BaseConsoleButton extends BaseObject {
     protected commitData(): void {
         super.commitData();
 
-        this.field.text = this.label;
+        this.field.text = this.text;
 
         this.arrange();
     }
@@ -100,16 +100,16 @@ export class BaseConsoleButton extends BaseObject {
     }
 
 
-    get label(): string {
-        return this._label;
+    get text(): string {
+        return this._text;
     }
 
-    set label(value: string) {
-        if (value == this.label) {
+    set text(value: string) {
+        if (value == this.text) {
             return;
         }
 
-        this._label = value;
+        this._text = value;
 
         this.commitData();
     }
