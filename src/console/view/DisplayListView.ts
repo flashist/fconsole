@@ -466,11 +466,13 @@ export class DisplayListView extends BaseConsoleView {
     protected commitData(): void {
         super.commitData();
 
-        this.pauseKeyBtn.view.visible = this.pauseVisible;
-
         if (!this.visible) {
             this.isAdditionalInfoEnabled = false;
             this.isMoveHelperEnabled = false;
+        }
+
+        if (this.pauseKeyBtn) {
+            this.pauseKeyBtn.view.visible = this.pauseVisible;
         }
 
         if (this.additionalInfoBtn) {
