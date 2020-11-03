@@ -46,8 +46,8 @@ export class PauseKeyButton extends BaseConsoleButton {
 
                 this.commitData();
 
-            } else if (this.captureCode) {
-                if (KeyboardTools.getCharCodeFromKeyPressEvent(data.nativeEvent) == this.captureCode) {
+            } else if (this.pauseCode) {
+                if (KeyboardTools.getCharCodeFromKeyPressEvent(data.nativeEvent) == this.pauseCode) {
                     this.dispatchEvent(PauseKeyButtonEvent.PAUSE_KEY_PRESS);
                 }
             }
@@ -55,7 +55,7 @@ export class PauseKeyButton extends BaseConsoleButton {
     }
 
     protected onKeyUp(data: InputManagerEventData): void {
-        if (KeyboardTools.getCharCodeFromKeyPressEvent(data.nativeEvent) == this.captureCode) {
+        if (KeyboardTools.getCharCodeFromKeyPressEvent(data.nativeEvent) == this.pauseCode) {
             this.dispatchEvent(PauseKeyButtonEvent.PAUSE_KEY_UP);
         }
     }
@@ -65,18 +65,18 @@ export class PauseKeyButton extends BaseConsoleButton {
         super.commitData();
 
         if (this.isClicked) {
-            this.text = FC.config.localization.captureKeyBtnPressedLabel;
+            this.text = FC.config.localization.pauseUpdateKeyBtnPressedLabel;
 
         } else if (this.pauseKey) {
             this.text = StringTools.substituteList(
-                FC.config.localization.captureKeyBtnNormalLabel,
+                FC.config.localization.pauseUpdateKeyBtnNormalLabel,
                 this.pauseKey
             );
 
         } else {
             this.text = StringTools.substituteList(
-                FC.config.localization.captureKeyBtnNormalLabel,
-                FC.config.localization.captureKeyBtnNoKeyHelpText
+                FC.config.localization.pauseUpdateKeyBtnNormalLabel,
+                FC.config.localization.pauseUpdateKeyBtnNoKeyHelpText
             );
         }
     }
@@ -114,7 +114,7 @@ export class PauseKeyButton extends BaseConsoleButton {
         this.commitData();
     }
 
-    private get captureCode(): number {
+    private get pauseCode(): number {
         if (this.pauseKey) {
             return this.pauseKey.charCodeAt(0);
         } else {
