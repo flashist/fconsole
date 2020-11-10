@@ -113,13 +113,6 @@ export class BaseConsoleView extends BaseObject {
 
 
         this.eventListenerHelper.addEventListener(
-            this.captureKeyBtn,
-            CaptureKeyButtonEvent.CAPTURE_KEY_PRESS,
-            this.onCapture
-        );
-
-
-        this.eventListenerHelper.addEventListener(
             this.captureClickBtn.view,
             InteractiveEvent.TAP,
             this.onCapture
