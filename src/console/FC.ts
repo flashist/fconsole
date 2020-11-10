@@ -67,11 +67,6 @@ export class FC {
         FC.hideView(FC.view);
         //
         FC.displayListView = new DisplayListView();
-        if (FC.config.displayListSettings.defaultVisible) {
-            FC.showView(FC.displayListView);
-        } else {
-            FC.hideView(FC.displayListView);
-        }
 
         // Events
         FC.eventListenerHelper.addEventListener(
@@ -118,6 +113,10 @@ export class FC {
             FC.showView(FC.view, false);
             DisplayTools.moveObjectToTopLayer(FC.viewsCont);
             DisplayTools.moveObjectToTopLayer(FC.tooltipsCont);
+
+            if (FC.config.displayListSettings.defaultVisible) {
+                FC.showView(FC.displayListView);
+            }
 
         } else {
             FC.hideView(FC.view);
