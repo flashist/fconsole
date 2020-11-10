@@ -10,6 +10,9 @@ export class Config {
         onStatus: "on",
         offStatus: "off",
 
+        closeBtnLabel: "X",
+
+        displayListBtnLabel: "DL",
         displayListBtnTooltipTitle: "Display List Inspector",
         displayListBtnTooltipText: "Map the display list\nunder your mouse",
 
@@ -69,6 +72,8 @@ export class Config {
     };
 
     public displayListSettings = {
+        defaultVisible: true,
+
         defaultCaptureKeyCode: KeyCodes.C,
         defaultCaptureKey: "c",
         defaultPauseKeyCode: KeyCodes.P,

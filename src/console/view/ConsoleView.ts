@@ -16,7 +16,7 @@ export class ConsoleView extends BaseConsoleView {
         this.titleVisible = false;
 
         this.displayListBtn = this.createTitleBtn(
-            "DL",
+            FC.config.localization.displayListBtnLabel,
             {
                 title: FC.config.localization.displayListBtnTooltipTitle,
                 text: FC.config.localization.displayListBtnTooltipText
@@ -26,7 +26,7 @@ export class ConsoleView extends BaseConsoleView {
         this.addTitleElement(new FpsMeterView());
 
         this.closeBtn = this.createTitleBtn(
-            "X",
+            FC.config.localization.closeBtnLabel,
             {title: FC.config.localization.closeBtnTooltipTitle}
         );
     }

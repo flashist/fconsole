@@ -67,7 +67,11 @@ export class FC {
         FC.hideView(FC.view);
         //
         FC.displayListView = new DisplayListView();
-        FC.hideView(FC.displayListView);
+        if (FC.config.displayListSettings.defaultVisible) {
+            FC.showView(FC.displayListView);
+        } else {
+            FC.hideView(FC.displayListView);
+        }
 
         // Events
         FC.eventListenerHelper.addEventListener(
