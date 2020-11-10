@@ -36,6 +36,7 @@ export class CaptureKeyButton extends BaseConsoleButton {
         if (this.view.worldVisible) {
             if (this.isClicked) {
                 this.isClicked = false;
+                this.captureKey = data.nativeKeyboardEvent.key;
                 this.captureKeyCode = data.nativeKeyboardEvent.code;
 
                 this.commitData();

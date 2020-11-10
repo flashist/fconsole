@@ -110,12 +110,12 @@ export class DisplayListView extends BaseConsoleView {
         this.captureKeyBtn.tooltipData.text = FC.config.localization.captureKeyBtnTooltipText;
 
         if (FC.config.displayListSettings.defaultCaptureKeyCode) {
-            this.captureKeyBtn.captureKeyCode = FC.config.displayListSettings.defaultCaptureKeyCode;
             this.captureKeyBtn.captureKey = FC.config.displayListSettings.defaultCaptureKey;
+            this.captureKeyBtn.captureKeyCode = FC.config.displayListSettings.defaultCaptureKeyCode;
         }
         if (FC.config.displayListSettings.defaultPauseKeyCode) {
-            this.pauseKeyBtn.pauseKeyCode = FC.config.displayListSettings.defaultPauseKeyCode;
             this.pauseKeyBtn.pauseKey = FC.config.displayListSettings.defaultPauseKey;
+            this.pauseKeyBtn.pauseKeyCode = FC.config.displayListSettings.defaultPauseKeyCode;
         }
     }
 

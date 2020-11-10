@@ -26,11 +26,7 @@ export class PauseKeyButton extends BaseConsoleButton {
 
     protected onTick(): void {
         if (!this.isClicked) {
-            if (this.pauseKeyCode) {
-                if (InputManager.instance.checkIfKeyCodeJustPressed(this.pauseKeyCode)) {
-                    this.isActivated = !this.isActivated;
-                }
-            }
+
         }
     }
 
@@ -48,10 +44,17 @@ export class PauseKeyButton extends BaseConsoleButton {
         if (this.view.worldVisible) {
             if (this.isClicked) {
                 this.isClicked = false;
-                this.pauseKeyCode = data.nativeKeyboardEvent.code;
                 this.pauseKey = data.nativeKeyboardEvent.key;
+                this.pauseKeyCode = data.nativeKeyboardEvent.code;
 
                 this.commitData();
+
+            } else {
+                if (this.pauseKeyCode) {
+                    if (InputManager.instance.checkIfKeyCodeJustPressed(this.pauseKeyCode)) {
+                        this.isActivated = !this.isActivated;
+                    }
+                }
             }
         }
     }
@@ -134,5 +137,7 @@ export class PauseKeyButton extends BaseConsoleButton {
         }
 
         this._isActivated = value;
+
+        this.commitData();
     }
 }
