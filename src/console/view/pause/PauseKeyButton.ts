@@ -67,7 +67,7 @@ export class PauseKeyButton extends BaseConsoleButton {
                 this.text = StringTools.substitute(
                     FC.config.localization.pauseUpdateKeyBtnNormalLabel,
                     {
-                        key: this.pauseKeyCode,
+                        key: this.pauseKey,
                         status: FC.config.localization.onStatus
                     }
                 );
@@ -76,7 +76,7 @@ export class PauseKeyButton extends BaseConsoleButton {
                 this.text = StringTools.substitute(
                     FC.config.localization.pauseUpdateKeyBtnNormalLabel,
                     {
-                        key: this.pauseKeyCode,
+                        key: this.pauseKey,
                         status: FC.config.localization.offStatus
                     }
                 );

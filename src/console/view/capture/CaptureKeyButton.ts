@@ -59,7 +59,7 @@ export class CaptureKeyButton extends BaseConsoleButton {
             this.text = StringTools.substitute(
                 FC.config.localization.captureKeyBtnNormalLabel,
                 {
-                    key: this.captureKeyCode
+                    key: this.captureKey
                 }
             );
 
