@@ -51,7 +51,7 @@ export class PauseKeyButton extends BaseConsoleButton {
 
             } else {
                 if (this.pauseKeyCode) {
-                    if (InputManager.instance.checkIfKeyCodeJustPressed(this.pauseKeyCode)) {
+                    if (this.pauseKeyCode === data.nativeKeyboardEvent.key) {
                         this.isActivated = !this.isActivated;
                     }
                 }
