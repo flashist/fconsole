@@ -17,8 +17,8 @@ export class PauseKeyButton extends BaseConsoleButton {
 
         this.eventListenerHelper.addEventListener(
             InputManager.instance,
-            InputManagerEvent.KEY_DOWN,
-            this.onKeyDown
+            InputManagerEvent.KEY_UP,
+            this.onKeyUp
         );
 
         FApp.instance.ticker.add(this.onTick, this);
@@ -40,7 +40,7 @@ export class PauseKeyButton extends BaseConsoleButton {
         }
     }
 
-    protected onKeyDown(data: InputManagerEventData): void {
+    protected onKeyUp(data: InputManagerEventData): void {
         if (this.view.worldVisible) {
             if (this.isClicked) {
                 this.isClicked = false;

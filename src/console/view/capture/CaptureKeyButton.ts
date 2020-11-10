@@ -17,8 +17,8 @@ export class CaptureKeyButton extends BaseConsoleButton {
 
         this.eventListenerHelper.addEventListener(
             InputManager.instance,
-            InputManagerEvent.KEY_DOWN,
-            this.onKeyDown
+            InputManagerEvent.KEY_UP,
+            this.onKeyUp
         );
     }
 
@@ -32,7 +32,7 @@ export class CaptureKeyButton extends BaseConsoleButton {
         }
     }
 
-    protected onKeyDown(data: InputManagerEventData): void {
+    protected onKeyUp(data: InputManagerEventData): void {
         if (this.view.worldVisible) {
             if (this.isClicked) {
                 this.isClicked = false;
