@@ -1,4 +1,4 @@
-import {KeyCodes} from "@flashist/flibs";
+import {KeyCodes} from "../../../flibs/src";
 
 export class Config {
 
@@ -7,6 +7,9 @@ export class Config {
     public localization = {
         closeBtnTooltipTitle: "Close",
 
+        onStatus: "on",
+        offStatus: "off",
+
         displayListBtnTooltipTitle: "Display List Inspector",
         displayListBtnTooltipText: "Map the display list\nunder your mouse",
 
@@ -14,17 +17,17 @@ export class Config {
         captureClickBtnTooltip: "Click to copy display data into dev console",
 
         captureKeyBtnTooltipTitle: "Assign a key to copy display data into dev console",
-        captureKeyBtnNormalLabel: "Capture key: {0}",
+        captureKeyBtnTooltipText: "Press an assinged key\nto add display list hierarchy\nto the browser console",
+        captureKeyBtnNormalLabel: "Capture key: {key}",
         captureKeyBtnPressedLabel: "Press a key",
         captureKeyBtnNoKeyHelpText: "(click to add)",
 
         pauseUpdateKeyBtnTooltipTitle: "Assign a key to pause display list data update",
-        pauseUpdateKeyBtnNormalLabel: "Pause key: {0}",
+        pauseUpdateKeyBtnNormalLabel: "Pause key: {key} ({status})",
         pauseUpdateKeyBtnPressedLabel: "Press a key",
         pauseUpdateKeyBtnNoKeyHelpText: "(click to add)",
 
         displayListTitle: "Display List Inspector",
-        displayListCapturedKeyText: "Press an assinged key\nto add display list hierarchy\nto the browser console",
         displayListStructureLogTitle: "Display List Structure:",
 
         additionalInfoBtnNormalLabel: "Additional Info: off",
@@ -44,14 +47,6 @@ export class Config {
     public console = {
         aboveAll: true,
         defaultVisible: false
-    };
-
-    public captureKey = {
-        defaultCode: KeyCodes.C
-    };
-
-    public pauseCode = {
-        defaultCode: KeyCodes.SHIFT
     };
 
     public btnSettings = {
@@ -74,7 +69,10 @@ export class Config {
     };
 
     public displayListSettings = {
+        defaultCaptureKeyCode: KeyCodes.C,
         defaultCaptureKey: "c",
+        defaultPauseKeyCode: KeyCodes.P,
+        defaultPauseKey: "p",
 
         hierarchyLabelColor: 0xCCCCCC,
         hierarchyLabelSize: 14,

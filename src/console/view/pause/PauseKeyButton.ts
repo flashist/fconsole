@@ -1,65 +1,60 @@
 import {BaseConsoleButton} from "../BaseConsoleButton";
-import {InputManager, InputManagerEvent, InputManagerEventData} from "@flashist/flibs";
-import {KeyboardTools, StringTools} from "@flashist/fcore";
+import {FApp, InputManager, InputManagerEvent, InputManagerEventData} from "@flashist/flibs";
+import {StringTools} from "@flashist/fcore";
 
 import {FC} from "../../FC";
-import {PauseKeyButtonEvent} from "./PauseKeyButtonEvent";
 
 export class PauseKeyButton extends BaseConsoleButton {
 
-    private _pauseKey: string;
+    private _pauseKeyCode: string;
+    public pauseKey: string;
 
     private _isClicked: boolean;
-
+    private _isActivated: boolean;
 
     protected addListeners(): void {
         super.addListeners();
 
         this.eventListenerHelper.addEventListener(
             InputManager.instance,
-            InputManagerEvent.KEY_PRESS,
-            this.onKeyPress
+            InputManagerEvent.KEY_DOWN,
+            this.onKeyDown
         );
 
-        this.eventListenerHelper.addEventListener(
-            InputManager.instance,
-            InputManagerEvent.KEY_UP,
-            this.onKeyUp
-        );
+        FApp.instance.ticker.add(this.onTick, this);
     }
 
-
-    protected onClick(): void {
-        super.onClick();
-
-        this.isClicked = !this.isClicked;
+    protected onTick(): void {
         if (!this.isClicked) {
-            this.pauseKey = null;
-        }
-    }
-
-    protected onKeyPress(data: InputManagerEventData): void {
-        if (this.view.worldVisible) {
-            if (this.isClicked) {
-                this.isClicked = false;
-                this.pauseKey = KeyboardTools.getCharFromKeyPressEvent(data.nativeEvent);
-
-                this.commitData();
-
-            } else if (this.pauseCode) {
-                if (KeyboardTools.getCharCodeFromKeyPressEvent(data.nativeEvent) == this.pauseCode) {
-                    this.dispatchEvent(PauseKeyButtonEvent.PAUSE_KEY_PRESS);
+            if (this.pauseKeyCode) {
+                if (InputManager.instance.checkIfKeyCodeJustPressed(this.pauseKeyCode)) {
+                    this.isActivated = !this.isActivated;
                 }
             }
         }
     }
 
-    protected onKeyUp(data: InputManagerEventData): void {
-        if (KeyboardTools.getCharCodeFromKeyPressEvent(data.nativeEvent) == this.pauseCode) {
-            this.dispatchEvent(PauseKeyButtonEvent.PAUSE_KEY_UP);
+    protected onClick(): void {
+        super.onClick();
+
+        this.isClicked = !this.isClicked;
+        if (this.isClicked) {
+            this.pauseKeyCode = null;
+            this.isActivated = false;
         }
     }
 
+    protected onKeyDown(data: InputManagerEventData): void {
+        if (this.view.worldVisible) {
+            if (this.isClicked) {
+                this.isClicked = false;
+                this.pauseKeyCode = data.nativeKeyboardEvent.code;
+                this.pauseKey = data.nativeKeyboardEvent.key;
+
+                this.commitData();
+            }
+        }
+    }
 
     protected commitData(): void {
         super.commitData();
@@ -67,16 +62,32 @@ export class PauseKeyButton extends BaseConsoleButton {
         if (this.isClicked) {
             this.text = FC.config.localization.pauseUpdateKeyBtnPressedLabel;
 
-        } else if (this.pauseKey) {
-            this.text = StringTools.substituteList(
-                FC.config.localization.pauseUpdateKeyBtnNormalLabel,
-                this.pauseKey
-            );
+        } else if (this.pauseKeyCode) {
+            if (this.isActivated) {
+                this.text = StringTools.substitute(
+                    FC.config.localization.pauseUpdateKeyBtnNormalLabel,
+                    {
+                        key: this.pauseKeyCode,
+                        status: FC.config.localization.onStatus
+                    }
+                );
+
+            } else {
+                this.text = StringTools.substitute(
+                    FC.config.localization.pauseUpdateKeyBtnNormalLabel,
+                    {
+                        key: this.pauseKeyCode,
+                        status: FC.config.localization.offStatus
+                    }
+                );
+            }
 
         } else {
-            this.text = StringTools.substituteList(
+            this.text = StringTools.substitute(
                 FC.config.localization.pauseUpdateKeyBtnNormalLabel,
-                FC.config.localization.pauseUpdateKeyBtnNoKeyHelpText
+                {
+                    key: FC.config.localization.pauseUpdateKeyBtnNoKeyHelpText
+                }
             );
         }
     }
@@ -101,24 +112,27 @@ export class PauseKeyButton extends BaseConsoleButton {
         this.commitData();
     }
 
-    public get pauseKey(): string {
-        return this._pauseKey;
+    public get pauseKeyCode(): string {
+        return this._pauseKeyCode;
     }
-    public set pauseKey(value: string) {
-        if (value === this._pauseKey) {
+    public set pauseKeyCode(value: string) {
+        if (value === this._pauseKeyCode) {
             return;
         }
 
-        this._pauseKey = value;
+        this._pauseKeyCode = value;
 
         this.commitData();
     }
 
-    private get pauseCode(): number {
-        if (this.pauseKey) {
-            return this.pauseKey.charCodeAt(0);
-        } else {
-            return undefined;
+    get isActivated(): boolean {
+        return this._isActivated;
+    }
+    set isActivated(value: boolean) {
+        if (value === this.isActivated) {
+            return;
         }
+
+        this._isActivated = value;
     }
 }

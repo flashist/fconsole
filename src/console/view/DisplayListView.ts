@@ -19,7 +19,12 @@ import {PauseKeyButton} from "./pause/PauseKeyButton";
 
 export class DisplayListView extends BaseConsoleView {
 
-    private static ARROW_KEY_CODES: number[] = [KeyCodes.LEFT_ARROW, KeyCodes.RIGHT_ARROW, KeyCodes.UP_ARROW, KeyCodes.DOWN_ARROW];
+    private static ARROW_KEY_CODES: string[] = [
+        KeyCodes.ARROW_LEFT,
+        KeyCodes.ARROW_RIGHT,
+        KeyCodes.ARROW_UP,
+        KeyCodes.ARROW_DOWN
+    ];
 
     private lastCheckedPos: Point;
     private displayListField: FLabel;
@@ -102,10 +107,15 @@ export class DisplayListView extends BaseConsoleView {
             {title: FC.config.localization.closeBtnTooltipTitle}
         );
 
-        this.captureKeyBtn.tooltipData.text = FC.config.localization.displayListCapturedKeyText;
+        this.captureKeyBtn.tooltipData.text = FC.config.localization.captureKeyBtnTooltipText;
 
-        if (FC.config.displayListSettings.defaultCaptureKey) {
+        if (FC.config.displayListSettings.defaultCaptureKeyCode) {
+            this.captureKeyBtn.captureKeyCode = FC.config.displayListSettings.defaultCaptureKeyCode;
             this.captureKeyBtn.captureKey = FC.config.displayListSettings.defaultCaptureKey;
+        }
+        if (FC.config.displayListSettings.defaultPauseKeyCode) {
+            this.pauseKeyBtn.pauseKeyCode = FC.config.displayListSettings.defaultPauseKeyCode;
+            this.pauseKeyBtn.pauseKey = FC.config.displayListSettings.defaultPauseKey;
         }
     }
 
@@ -241,9 +251,10 @@ export class DisplayListView extends BaseConsoleView {
     }
 
     protected onKeyDown(data: InputManagerEventData): void {
+
         if (this.isMoveHelperEnabled) {
-            let tempCode: number = KeyboardTools.getCharCodeFromKeyPressEvent(data.nativeEvent);
-            if (tempCode == KeyCodes.CONTROL) {
+            let tempCode: string = data.nativeKeyboardEvent.code;
+            if (data.nativeKeyboardEvent.ctrlKey) {
                 this.moveObjectIndex--;
                 this.commitData();
 
@@ -252,19 +263,19 @@ export class DisplayListView extends BaseConsoleView {
                     let tempChangeX: number = 0;
                     let tempChangeY: number = 0;
 
-                    if (tempCode == KeyCodes.LEFT_ARROW) {
+                    if (tempCode == KeyCodes.ARROW_LEFT) {
                         tempChangeX = -1;
-                    } else if (tempCode == KeyCodes.RIGHT_ARROW) {
+                    } else if (tempCode == KeyCodes.ARROW_RIGHT) {
                         tempChangeX = 1;
                     }
 
-                    if (tempCode == KeyCodes.UP_ARROW) {
+                    if (tempCode == KeyCodes.ARROW_UP) {
                         tempChangeY = -1;
-                    } else if (tempCode == KeyCodes.DOWN_ARROW) {
+                    } else if (tempCode == KeyCodes.ARROW_DOWN) {
                         tempChangeY = 1;
                     }
 
-                    if (InputManager.instance.checkIfKeyDown(KeyCodes.SHIFT)) {
+                    if (data.nativeKeyboardEvent.shiftKey) {
                         tempChangeX *= 10;
                         tempChangeY *= 10;
                     }
