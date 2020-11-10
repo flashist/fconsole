@@ -72,7 +72,7 @@ export class Config {
     };
 
     public displayListSettings = {
-        defaultVisible: true,
+        defaultVisible: false,
 
         defaultCaptureKeyCode: KeyCodes.C,
         defaultCaptureKey: "c",

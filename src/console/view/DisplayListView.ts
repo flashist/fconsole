@@ -14,7 +14,6 @@ import {InputManager, InputManagerEvent, InputManagerEventData} from "@flashist/
 import {BaseConsoleView} from "./BaseConsoleView";
 import {BaseConsoleButton} from "./BaseConsoleButton";
 import {FC} from "../FC";
-import {PauseKeyButtonEvent} from "./pause/PauseKeyButtonEvent";
 import {PauseKeyButton} from "./pause/PauseKeyButton";
 
 export class DisplayListView extends BaseConsoleView {
@@ -164,19 +163,6 @@ export class DisplayListView extends BaseConsoleView {
             InputManagerEvent.KEY_DOWN,
             this.onKeyDown
         );
-
-
-        this.eventListenerHelper.addEventListener(
-            this.pauseKeyBtn,
-            PauseKeyButtonEvent.PAUSE_KEY_PRESS,
-            this.onPauseStart
-        );
-
-        this.eventListenerHelper.addEventListener(
-            this.pauseKeyBtn,
-            PauseKeyButtonEvent.PAUSE_KEY_UP,
-            this.onPauseEnd
-        );
     }
 
     protected removeListeners(): void {
@@ -187,6 +173,10 @@ export class DisplayListView extends BaseConsoleView {
 
     private onTick(): void {
         if (this.paused) {
+            return;
+        }
+
+        if (this.pauseKeyBtn.isActivated) {
             return;
         }
 
@@ -221,25 +211,10 @@ export class DisplayListView extends BaseConsoleView {
     protected onCapture(): void {
         super.onCapture();
 
-        const globalPos: Point = FApp.instance.getGlobalInteractionPosition();
-        let underPointData: IFDisplayObjectUnderPointVO = FDisplayTools.getObjectsUnderPoint(
-            FApp.instance.stage,
-            globalPos.x,
-            globalPos.y
-        );
-
         // Log the parsed structure
         console.group(FC.config.localization.displayListStructureLogTitle);
-        this.groupLogUnderPointData(underPointData);
+        this.groupLogUnderPointData(this.lastUnderPointData);
         console.groupEnd();
-    }
-
-    protected onPauseStart(): void {
-        this.paused = true;
-    }
-
-    protected onPauseEnd(): void {
-        this.paused = false;
     }
 
     protected onAdditionalInfo(): void {
