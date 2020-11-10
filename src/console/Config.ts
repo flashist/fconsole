@@ -1,4 +1,4 @@
-import {KeyCodes} from "../../../flibs/src";
+import {KeyCodes} from "@flashist/flibs";
 
 export class Config {
 
