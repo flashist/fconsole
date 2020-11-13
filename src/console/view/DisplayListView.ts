@@ -129,6 +129,10 @@ export class DisplayListView extends BaseConsoleView {
             this.pauseKeyBtn.pauseKey = FC.config.displayListSettings.defaultPauseKey;
             this.pauseKeyBtn.pauseKeyCode = FC.config.displayListSettings.defaultPauseKeyCode;
         }
+
+        this.isIgnoreConsoleEnabled = FC.config.displayListSettings.defaultIgnoreConsoleEnabled;
+        this.isAdditionalInfoEnabled = FC.config.displayListSettings.defaultAdditionalInfoEnabled;
+        this.isMoveHelperEnabled = FC.config.displayListSettings.defaultMoveHelperEnabled;
     }
 
     public destruction(): void {

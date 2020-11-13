@@ -84,6 +84,10 @@ export class Config {
         defaultPauseKeyCode: KeyCodes.P,
         defaultPauseKey: "p",
 
+        defaultIgnoreConsoleEnabled: true,
+        defaultAdditionalInfoEnabled: false,
+        defaultMoveHelperEnabled: false,
+
         hierarchyLabelColor: 0xCCCCCC,
         hierarchyLabelSize: 14,
 
