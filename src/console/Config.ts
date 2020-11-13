@@ -38,6 +38,11 @@ export class Config {
         additionalInfoBtnTooltipTitle: "Additional visual objects info",
         additionalInfoBtnTooltipText: "Position, width, height, etc. (configurable)",
 
+        ignorelInfoBtnNormalLabel: "Ignore Console: off",
+        ignoreInfoBtnPressedLabel: "Ignore Console: on",
+        ignoreInfoBtnTooltipTitle: "Ignore console classes",
+        ignoreInfoBtnTooltipText: "Console-related classes\nwon't be shown in the inspector",
+
         moveHelperBtnNormalLabel: "Move Helper: off",
         moveHelperBtnPressedLabel: "Move Helper: on",
         moveHelperTooltipTitle: "Move Helper",

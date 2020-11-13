@@ -15,6 +15,7 @@ import {BaseConsoleView} from "./BaseConsoleView";
 import {BaseConsoleButton} from "./BaseConsoleButton";
 import {FC} from "../FC";
 import {PauseKeyButton} from "./pause/PauseKeyButton";
+import {ConsoleContentContainer} from "./ConsoleContentContainer";
 
 export class DisplayListView extends BaseConsoleView {
 
@@ -32,6 +33,9 @@ export class DisplayListView extends BaseConsoleView {
     private lastAllObjectsUnderPointList: any[];
 
     private forceUpdateUnderPointView: boolean;
+
+    protected ignoreConsoleBtn: BaseConsoleButton;
+    private _isIgnoreConsoleEnabled: boolean;
 
     protected additionalInfoBtn: BaseConsoleButton;
     private _isAdditionalInfoEnabled: boolean;
@@ -71,6 +75,16 @@ export class DisplayListView extends BaseConsoleView {
         //
         this.pauseKeyBtn.tooltipData = {title: FC.config.localization.pauseUpdateKeyBtnTooltipTitle};
 
+        this.ignoreConsoleBtn = new BaseConsoleButton();
+        this.insideContentCont.addChild(this.ignoreConsoleBtn.view);
+        this.ignoreConsoleBtn.tooltipData = {
+            title: FC.config.localization.ignoreInfoBtnTooltipTitle,
+            text: FC.config.localization.ignoreInfoBtnTooltipText
+        };
+        this.ignoreConsoleBtn.field.size = FC.config.btnSettings.smallSize;
+        //
+        this.ignoreConsoleBtn.view.y = this.pauseKeyBtn.view.y + this.pauseKeyBtn.view.height + 5;
+
         this.additionalInfoBtn = new BaseConsoleButton();
         this.insideContentCont.addChild(this.additionalInfoBtn.view);
         this.additionalInfoBtn.tooltipData = {
@@ -79,8 +93,7 @@ export class DisplayListView extends BaseConsoleView {
         };
         this.additionalInfoBtn.field.size = FC.config.btnSettings.smallSize;
         //
-        // this.additionalInfoBtn.view.y = 5;
-        this.additionalInfoBtn.view.y = this.pauseKeyBtn.view.y + this.pauseKeyBtn.view.height + 5;
+        this.additionalInfoBtn.view.y = this.ignoreConsoleBtn.view.y + this.ignoreConsoleBtn.view.height;
 
         this.moveHelperBtn = new BaseConsoleButton();
         this.insideContentCont.addChild(this.moveHelperBtn.view);
@@ -153,6 +166,12 @@ export class DisplayListView extends BaseConsoleView {
         );
 
         this.eventListenerHelper.addEventListener(
+            this.ignoreConsoleBtn.view,
+            InteractiveEvent.TAP,
+            this.onIgnoreConsole
+        );
+
+        this.eventListenerHelper.addEventListener(
             this.moveHelperBtn.view,
             InteractiveEvent.TAP,
             this.onMoveHelper
@@ -188,7 +207,10 @@ export class DisplayListView extends BaseConsoleView {
             let underPointData: IFDisplayObjectUnderPointVO = FDisplayTools.getObjectsUnderPoint(
                 FApp.instance.stage,
                 globalPos.x,
-                globalPos.y
+                globalPos.y,
+                (object: DisplayObject): boolean => {
+                    return !(object instanceof ConsoleContentContainer);
+                }
             );
 
             if (this.forceUpdateUnderPointView || !this.checkUnderPointDataEqual(underPointData, this.lastUnderPointData)) {
@@ -215,6 +237,10 @@ export class DisplayListView extends BaseConsoleView {
         console.group(FC.config.localization.displayListStructureLogTitle);
         this.groupLogUnderPointData(this.lastUnderPointData);
         console.groupEnd();
+    }
+
+    protected onIgnoreConsole(): void {
+        this.isIgnoreConsoleEnabled = !this.isIgnoreConsoleEnabled;
     }
 
     protected onAdditionalInfo(): void {
@@ -448,6 +474,18 @@ export class DisplayListView extends BaseConsoleView {
         this.commitData();
     }
 
+    get isIgnoreConsoleEnabled(): boolean {
+        return this._isIgnoreConsoleEnabled;
+    }
+    set isIgnoreConsoleEnabled(value: boolean) {
+        if (value == this._isIgnoreConsoleEnabled) {
+            return;
+        }
+
+        this._isIgnoreConsoleEnabled = value;
+
+        this.commitData();
+    }
 
     protected commitData(): void {
         super.commitData();
@@ -459,6 +497,14 @@ export class DisplayListView extends BaseConsoleView {
 
         if (this.pauseKeyBtn) {
             this.pauseKeyBtn.view.visible = this.pauseVisible;
+        }
+
+        if (this.ignoreConsoleBtn) {
+            if (this.isIgnoreConsoleEnabled) {
+                this.ignoreConsoleBtn.text = FC.config.localization.ignoreInfoBtnPressedLabel;
+            } else {
+                this.ignoreConsoleBtn.text = FC.config.localization.ignorelInfoBtnNormalLabel;
+            }
         }
 
         if (this.additionalInfoBtn) {
@@ -500,6 +546,7 @@ export class DisplayListView extends BaseConsoleView {
             this.prevMoveObject = this.moveObject;
 
         }
+
     }
 
     get pauseVisible(): boolean {

@@ -16,6 +16,7 @@ import {DisplayListView} from "./view/DisplayListView";
 import {Config} from "./Config";
 import {TooltipManager} from "../tooltip/TooltipManager";
 import {ConsoleTooltip} from "./view/tooltip/ConsoleTooltip";
+import {ConsoleContentContainer} from "./view/ConsoleContentContainer";
 
 export class FC {
     private static eventListenerHelper: EventListenerHelper;
@@ -47,7 +48,7 @@ export class FC {
         FC.eventListenerHelper = new EventListenerHelper(FC);
 
         // FC.contentCont = new FContainer();
-        FC.contentCont = new FContainer();
+        FC.contentCont = new ConsoleContentContainer();
 
         // FC.viewsCont = new FContainer();
         FC.viewsCont = new FContainer();
