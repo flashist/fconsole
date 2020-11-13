@@ -204,13 +204,18 @@ export class DisplayListView extends BaseConsoleView {
             this.lastCheckedPos.x = globalPos.x;
             this.lastCheckedPos.y = globalPos.y;
 
+            let filter = null;
+            if (this.isIgnoreConsoleEnabled) {
+                filter = (object: DisplayObject): boolean => {
+                    return !(object instanceof ConsoleContentContainer);
+                };
+            }
+
             let underPointData: IFDisplayObjectUnderPointVO = FDisplayTools.getObjectsUnderPoint(
                 FApp.instance.stage,
                 globalPos.x,
                 globalPos.y,
-                (object: DisplayObject): boolean => {
-                    return !(object instanceof ConsoleContentContainer);
-                }
+                filter
             );
 
             if (this.forceUpdateUnderPointView || !this.checkUnderPointDataEqual(underPointData, this.lastUnderPointData)) {
