@@ -91,6 +91,7 @@ export class Config {
         defaultMoveHelperEnabled: false,
 
         hierarchyLabelColor: 0xCCCCCC,
+        hierarchyLabelColorOver: 0xFF9900,
         hierarchyLabelSize: 14,
 
         nameParamName: "name",

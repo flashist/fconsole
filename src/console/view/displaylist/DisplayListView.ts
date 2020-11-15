@@ -706,6 +706,8 @@ export class DisplayListView extends BaseConsoleView {
 
             if (lastItem) {
                 tempItem.y = lastItem.y + lastItem.height;
+            } else {
+                tempItem.y = 0;
             }
 
             lastItem = tempItem;
