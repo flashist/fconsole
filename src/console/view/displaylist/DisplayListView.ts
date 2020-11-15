@@ -132,7 +132,7 @@ export class DisplayListView extends BaseConsoleView {
         this.displayListItemsCont = new FContainer();
         this.insideContentCont.addChild(this.displayListItemsCont);
         //
-        this.insideContentCont.y = this.moveHelperBtn.view.y + this.moveHelperBtn.view.height + 5;
+        this.displayListItemsCont.y = this.moveHelperBtn.view.y + this.moveHelperBtn.view.height + 5;
 
         this.closeBtn = this.createTitleBtn(
             FC.config.localization.closeBtnLabel,
