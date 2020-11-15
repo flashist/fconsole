@@ -19,6 +19,7 @@ export class DisplayListItemView extends FContainer<IFDisplayObjectUnderPointVO>
         super.construction();
 
         this.contentCont = new FContainer();
+        this.addChild(this.contentCont);
         this.contentCont.interactive = true;
         this.contentCont.buttonMode = true;
 
