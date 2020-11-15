@@ -17,7 +17,7 @@ export class Config {
         displayListBtnTooltipText: "Map the display list\nunder your mouse",
 
         captureClickBtnLabel: "Capture",
-        captureClickBtnTooltip: "Click to copy display data into dev console",
+        captureClickBtnTooltip: "Click to copy display list data into the dev console",
 
         captureKeyBtnTooltipTitle: "Assign a key to copy display data into dev console",
         captureKeyBtnTooltipText: "Press an assinged key\nto add display list hierarchy\nto the browser console",
@@ -29,6 +29,8 @@ export class Config {
         pauseUpdateKeyBtnNormalLabel: "Pause key: {key} ({status})",
         pauseUpdateKeyBtnPressedLabel: "Press a key",
         pauseUpdateKeyBtnNoKeyHelpText: "(click to add)",
+
+        displayListItemTooltipTitle: "Click to copy display item data into the dev console",
 
         displayListTitle: "Display List Inspector",
         displayListStructureLogTitle: "Display List Structure:",

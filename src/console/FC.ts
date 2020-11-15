@@ -12,11 +12,11 @@ import {
 
 import {ConsoleView} from "./view/ConsoleView";
 import {BaseConsoleView} from "./view/BaseConsoleView";
-import {DisplayListView} from "./view/DisplayListView";
 import {Config} from "./Config";
 import {TooltipManager} from "../tooltip/TooltipManager";
 import {ConsoleTooltip} from "./view/tooltip/ConsoleTooltip";
 import {ConsoleContentContainer} from "./view/ConsoleContentContainer";
+import {DisplayListView} from "./view/displaylist/DisplayListView";
 
 export class FC {
     private static eventListenerHelper: EventListenerHelper;

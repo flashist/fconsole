@@ -1,4 +1,4 @@
 export interface ITooltipData {
-    title:string;
-    text?:string;
+    title: string;
+    text?: string;
 }

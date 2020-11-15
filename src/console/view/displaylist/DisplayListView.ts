@@ -1,4 +1,4 @@
-import {KeyboardTools, ObjectTools} from "@flashist/fcore";
+import {ObjectsPool, ObjectTools} from "@flashist/fcore";
 import {
     FLabel,
     Point,
@@ -7,15 +7,20 @@ import {
     KeyCodes,
     IFDisplayObjectUnderPointVO,
     FDisplayTools,
-    FApp
+    FApp,
+    FContainer,
+    DisplayTools,
+    InputManager,
+    InputManagerEvent,
+    InputManagerEventData
 } from "@flashist/flibs";
-import {InputManager, InputManagerEvent, InputManagerEventData} from "@flashist/flibs";
 
-import {BaseConsoleView} from "./BaseConsoleView";
-import {BaseConsoleButton} from "./BaseConsoleButton";
-import {FC} from "../FC";
-import {PauseKeyButton} from "./pause/PauseKeyButton";
-import {ConsoleContentContainer} from "./ConsoleContentContainer";
+import {DisplayListItemView} from "./DisplayListItemView";
+import {BaseConsoleView} from "../BaseConsoleView";
+import {BaseConsoleButton} from "../BaseConsoleButton";
+import {PauseKeyButton} from "../pause/PauseKeyButton";
+import {FC} from "../../FC";
+import {ConsoleContentContainer} from "../ConsoleContentContainer";
 
 export class DisplayListView extends BaseConsoleView {
 
@@ -27,7 +32,12 @@ export class DisplayListView extends BaseConsoleView {
     ];
 
     private lastCheckedPos: Point;
+
     private displayListField: FLabel;
+
+    private displayListItemsPool: ObjectsPool;
+    private displayListItemsCont: FContainer;
+
     private closeBtn: BaseConsoleButton;
     private lastUnderPointData: IFDisplayObjectUnderPointVO;
     private lastAllObjectsUnderPointList: any[];
@@ -113,9 +123,19 @@ export class DisplayListView extends BaseConsoleView {
         this.insideContentCont.addChild(this.displayListField);
         //
         this.displayListField.y = this.moveHelperBtn.view.y + this.moveHelperBtn.view.height + 5;
+        //
+        this.displayListField.visible = false;
+
+
+        this.displayListItemsPool = new ObjectsPool();
+
+        this.displayListItemsCont = new FContainer();
+        this.insideContentCont.addChild(this.displayListItemsCont);
+        //
+        this.insideContentCont.y = this.moveHelperBtn.view.y + this.moveHelperBtn.view.height + 5;
 
         this.closeBtn = this.createTitleBtn(
-            "X",
+            FC.config.localization.closeBtnLabel,
             {title: FC.config.localization.closeBtnTooltipTitle}
         );
 
@@ -230,12 +250,16 @@ export class DisplayListView extends BaseConsoleView {
                 this.lastAllObjectsUnderPointList = [];
                 this.parseUnderPointDataToSingleList(this.lastUnderPointData, this.lastAllObjectsUnderPointList);
 
-                let listText: string = this.parseUnderPointData(underPointData);
+                let listText: string = this.parseUnderPointDataToText(underPointData);
                 this.displayListField.text = listText;
+
+                //
+                this.clearDisplayListItems();
+                let tempDisplayListItems: DisplayListItemView[] = this.parseUnderPointDataToVisualItemsList(underPointData);
+                this.createDisplayListItems(tempDisplayListItems);
 
                 this.arrange();
             }
-            // }
         }
     }
 
@@ -299,7 +323,7 @@ export class DisplayListView extends BaseConsoleView {
         }
     }
 
-    private parseUnderPointData(data: IFDisplayObjectUnderPointVO, prefix: string = "∟"): string {
+    private parseUnderPointDataToText(data: IFDisplayObjectUnderPointVO, prefix: string = "∟"): string {
         let result: string = "";
 
         if (data && data.object) {
@@ -369,7 +393,95 @@ export class DisplayListView extends BaseConsoleView {
                 let childPrefix: string = "- " + prefix;
                 let childrenCount: number = data.children.length;
                 for (let childIndex: number = 0; childIndex < childrenCount; childIndex++) {
-                    result += "\n" + this.parseUnderPointData(data.children[childIndex], childPrefix);
+                    result += "\n" + this.parseUnderPointDataToText(data.children[childIndex], childPrefix);
+                }
+            }
+        }
+
+        return result;
+    }
+
+    private parseUnderPointDataToVisualItemsList(data: IFDisplayObjectUnderPointVO, prefix: string = "∟"): DisplayListItemView[] {
+        let result: DisplayListItemView[] = [];
+
+        if (data && data.object) {
+
+            let tempName: string = data.object.toString();
+            if (data.object.constructor) {
+                tempName = ObjectTools.getConstructorName(data.object.constructor);
+            }
+
+            let tempItemText: string = prefix + " " + tempName;
+
+            if (FC.config.displayListSettings.nameParamName) {
+                if (data.object[FC.config.displayListSettings.nameParamName]) {
+                    tempItemText += " (" + data.object[FC.config.displayListSettings.nameParamName] + ")";
+                }
+            }
+
+            if (this.isMoveHelperEnabled) {
+                if (data.object == this.moveObject) {
+                    tempItemText += " " + FC.config.localization.movableObjectText;
+                }
+            }
+
+            if (this.isAdditionalInfoEnabled) {
+                if (FC.config.displayListSettings.additionalInfoParams) {
+                    tempItemText += " - { ";
+
+                    let parsedData;
+                    let tempParamConfig;
+
+                    let keys: string[] = Object.keys(FC.config.displayListSettings.additionalInfoParams);
+                    let tempKey: string;
+                    let tempVisualKey: string;
+                    let keysCount: number = keys.length;
+                    for (let keyIndex: number = 0; keyIndex < keysCount; keyIndex++) {
+                        tempKey = keys[keyIndex];
+
+                        if (data.object[tempKey] !== undefined) {
+
+                            if (keyIndex > 0) {
+                                tempItemText += ", "
+                            }
+
+                            parsedData = data.object[tempKey];
+                            //
+                            tempParamConfig = FC.config.displayListSettings.additionalInfoParams[tempKey];
+                            if (tempParamConfig.toFixed || tempParamConfig.toFixed === 0) {
+                                if (parsedData !== Math.floor(parsedData)) {
+                                    parsedData = (parsedData as number).toFixed(tempParamConfig.toFixed);
+                                }
+                            }
+
+                            //
+                            tempVisualKey = tempKey;
+                            if (tempParamConfig.visualName) {
+                                tempVisualKey = tempParamConfig.visualName;
+                            }
+
+                            tempItemText += tempVisualKey + ": " + parsedData;
+                        }
+                    }
+
+                    tempItemText += " }";
+                }
+            }
+
+            let tempItem: DisplayListItemView = this.displayListItemsPool.getObject(DisplayListItemView);
+            tempItem.data = data;
+            tempItem.text = tempItemText;
+            //
+            result.push(tempItem);
+
+            if (data.children && data.children.length > 0) {
+                let childPrefix: string = "- " + prefix;
+                let childrenCount: number = data.children.length;
+                for (let childIndex: number = 0; childIndex < childrenCount; childIndex++) {
+                    // result += "\n" + this.parseUnderPointDataToText(data.children[childIndex], childPrefix);
+                    result.push(
+                        ...this.parseUnderPointDataToVisualItemsList(data.children[childIndex], childPrefix)
+                    );
                 }
             }
         }
@@ -459,6 +571,7 @@ export class DisplayListView extends BaseConsoleView {
     get isAdditionalInfoEnabled(): boolean {
         return this._isAdditionalInfoEnabled;
     }
+
     set isAdditionalInfoEnabled(value: boolean) {
         if (value == this._isAdditionalInfoEnabled) {
             return;
@@ -473,6 +586,7 @@ export class DisplayListView extends BaseConsoleView {
     get isMoveHelperEnabled(): boolean {
         return this._isMoveHelperEnabled;
     }
+
     set isMoveHelperEnabled(value: boolean) {
         if (value == this._isMoveHelperEnabled) {
             return;
@@ -486,6 +600,7 @@ export class DisplayListView extends BaseConsoleView {
     get isIgnoreConsoleEnabled(): boolean {
         return this._isIgnoreConsoleEnabled;
     }
+
     set isIgnoreConsoleEnabled(value: boolean) {
         if (value == this._isIgnoreConsoleEnabled) {
             return;
@@ -561,6 +676,7 @@ export class DisplayListView extends BaseConsoleView {
     get pauseVisible(): boolean {
         return this._pauseVisible;
     }
+
     set pauseVisible(value: boolean) {
         if (value == this.pauseVisible) {
             return;
@@ -569,5 +685,30 @@ export class DisplayListView extends BaseConsoleView {
         this._pauseVisible = value;
 
         this.commitData();
+    }
+
+    protected clearDisplayListItems(): void {
+        let childrenCount: number = this.displayListItemsCont.children.length;
+        for (let childIndex: number = 0; childIndex < childrenCount; childIndex++) {
+            let tempChild: DisplayListItemView = this.displayListItemsCont.children[childIndex] as DisplayListItemView;
+            this.displayListItemsPool.addObject(tempChild, DisplayListItemView);
+        }
+
+        DisplayTools.removeAllChildren(this.displayListItemsCont);
+    }
+
+    protected createDisplayListItems(items: DisplayListItemView[]): void {
+        let lastItem: DisplayListItemView;
+        let itemsCount: number = items.length;
+        for (let itemIndex: number = 0; itemIndex < itemsCount; itemIndex++) {
+            let tempItem: DisplayListItemView = items[itemIndex];
+            this.displayListItemsCont.addChild(tempItem);
+
+            if (lastItem) {
+                tempItem.y = lastItem.y + lastItem.height;
+            }
+
+            lastItem = tempItem;
+        }
     }
 }
