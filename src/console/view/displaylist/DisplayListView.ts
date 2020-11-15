@@ -250,15 +250,7 @@ export class DisplayListView extends BaseConsoleView {
                 this.lastAllObjectsUnderPointList = [];
                 this.parseUnderPointDataToSingleList(this.lastUnderPointData, this.lastAllObjectsUnderPointList);
 
-                let listText: string = this.parseUnderPointDataToText(underPointData);
-                this.displayListField.text = listText;
-
-                //
-                this.clearDisplayListItems();
-                let tempDisplayListItems: DisplayListItemView[] = this.parseUnderPointDataToVisualItemsList(underPointData);
-                this.createDisplayListItems(tempDisplayListItems);
-
-                this.arrange();
+                this.commitDisplayListData();
             }
         }
     }
@@ -614,6 +606,8 @@ export class DisplayListView extends BaseConsoleView {
     protected commitData(): void {
         super.commitData();
 
+        this.commitDisplayListData();
+
         if (!this.visible) {
             this.isAdditionalInfoEnabled = false;
             this.isMoveHelperEnabled = false;
@@ -671,6 +665,21 @@ export class DisplayListView extends BaseConsoleView {
 
         }
 
+    }
+
+    protected commitDisplayListData(): void {
+        if (!this.lastUnderPointData) {
+            return;
+        }
+
+        let listText: string = this.parseUnderPointDataToText(this.lastUnderPointData);
+        this.displayListField.text = listText;
+
+        this.clearDisplayListItems();
+        let tempDisplayListItems: DisplayListItemView[] = this.parseUnderPointDataToVisualItemsList(this.lastUnderPointData);
+        this.createDisplayListItems(tempDisplayListItems);
+
+        this.arrange();
     }
 
     get pauseVisible(): boolean {
