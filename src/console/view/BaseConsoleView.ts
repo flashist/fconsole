@@ -75,7 +75,7 @@ export class BaseConsoleView extends BaseObject {
 
         this.captureClickBtn = new BaseConsoleButton();
         this.titleCont.addChild(this.captureClickBtn.view);
-        this.captureClickBtn.view.y = this.titleLabel.y + this.titleLabel.height;
+        this.captureClickBtn.view.y = this.titleLabel.y + this.titleLabel.height + 10;
         //
         this.captureClickBtn.tooltipData = {title: FC.config.localization.captureClickBtnTooltip};
         this.captureClickBtn.text = FC.config.localization.captureClickBtnLabel;
