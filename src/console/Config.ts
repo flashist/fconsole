@@ -100,7 +100,10 @@ export class Config {
             "y": {toFixed: 2},
             "width": {visualName: "w", toFixed: 2},
             "height": {visualName: "h", toFixed: 2}
-        }
+        },
+
+        globalVarPoolId: "fconsole_globalVarPool",
+        globalVarNamePattern: "fconsole_object_{0}"
     };
 
     public tooltipSettings = {

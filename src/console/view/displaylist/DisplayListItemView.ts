@@ -1,5 +1,6 @@
 import {IFDisplayObjectUnderPointVO, InteractiveEvent, FContainer, DisplayObjectContainer, FLabel} from "@flashist/flibs";
 import {Config, FC, ITooltipData} from "../../..";
+import {GlobalVarTools} from "../../tools/GlobalVarTools";
 
 
 export class DisplayListItemView extends FContainer<IFDisplayObjectUnderPointVO> {
@@ -84,6 +85,7 @@ export class DisplayListItemView extends FContainer<IFDisplayObjectUnderPointVO>
 
         //
         console.log(this.data.object);
+        GlobalVarTools.storeObjectAsGlobalVar(this.data.object);
     }
 
 
