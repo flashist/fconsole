@@ -103,7 +103,7 @@ export class Config {
         },
 
         globalVarPoolId: "fconsole_globalVarPool",
-        globalVarNamePattern: "fconsole_object_{0}"
+        globalVarNamePattern: "fconsoleTemp{0}"
     };
 
     public tooltipSettings = {
