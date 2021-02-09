@@ -1,7 +1,7 @@
 # FConsole
 Visual console for debugging Pixi.js applications.
 
-Built on top of the [Flibs](https://github.com/flashist/flibs) and [FCore](https://github.com/flashist/fcore) libs.
+Built on top of the [FLibs](https://github.com/flashist/flibs) and [FCore](https://github.com/flashist/fcore) libs.
 
 *Inspired by [Flash-Console](https://github.com/junkbyte/flash-console).*
 
