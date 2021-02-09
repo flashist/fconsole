@@ -1,5 +1,7 @@
 # FConsole
-Bunch* of useful debug tools for speeding up development process of [Pixi.js](https://github.com/pixijs/pixi.js)** based applications. Written in [TypeScript](https://github.com/Microsoft/TypeScript).
+Visual console for debugging Pixi.js applications.
+
+Built on top of the [Flibs](https://github.com/flashist/flibs) and [FCore](https://github.com/flashist/fcore) libs.
 
 *Inspired by [Flash-Console](https://github.com/junkbyte/flash-console).*
 
