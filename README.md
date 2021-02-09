@@ -146,4 +146,4 @@ SystemJS.config(
 # Notes
 \* Not all of the planned features are implemented yet, there are [some enhancements to be done](https://github.com/flashist/fconsole/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement).
 
-\*\* At the current moment (up to the August 29, 2016) the console works only with Pixi.js library but the [fgraphics](https://github.com/flashist/fgraphics) lib was developed to be enhanced for supporting different game engines. [The next major adapter which is planned](https://github.com/flashist/fconsole/issues/4) to be implemented is the [EaselJS](https://github.com/CreateJS/EaselJS) adapter.
+\*\* At the current moment the console works only with Pixi.js library but the [fgraphics](https://github.com/flashist/fgraphics) lib was developed to be enhanced for supporting different game engines. [The next major adapter which is planned](https://github.com/flashist/fconsole/issues/4) to be implemented is the [EaselJS](https://github.com/CreateJS/EaselJS) adapter.
