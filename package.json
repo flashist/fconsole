@@ -1,11 +1,11 @@
 {
   "name": "@flashist/fconsole",
-  "version": "0.0.79",
+  "version": "0.0.1",
   "license": "MIT",
   "private": false,
   "repository": {
     "type": "git",
-    "url": "https://github.com/flashist/fconsole"
+    "url": "git+https://github.com/flashist/fconsole.git"
   },
   "description": "Bunch* of useful debug tools for speeding up development process of Pixi.js based applications. Written in TypeScript. Inspired by Flash-Console.",
   "keywords": [
@@ -41,5 +41,10 @@
     "require-dir": "^1.2.0",
     "rimraf": "^3.0.2",
     "typescript": "^4.0.2"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/flashist/fconsole/issues"
+  },
+  "homepage": "https://github.com/flashist/fconsole#readme",
+  "author": "Mark Dolbyrev"
 }
