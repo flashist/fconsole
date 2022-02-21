@@ -2,7 +2,7 @@
   "name": "@flashist/fconsole",
   "version": "0.0.2",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/flashist/fconsole.git"
