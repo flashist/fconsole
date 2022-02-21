@@ -1,0 +1,45 @@
+{
+  "name": "@flashist/fconsole",
+  "version": "0.0.78",
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flashist/fconsole"
+  },
+  "description": "Bunch* of useful debug tools for speeding up development process of Pixi.js based applications. Written in TypeScript. Inspired by Flash-Console.",
+  "keywords": [
+    "pixi.js",
+    "pixijs",
+    "canvas",
+    "webgl",
+    "debugging",
+    "debug",
+    "devtools",
+    "dev tools",
+    "developer tools",
+    "display list",
+    "DisplayList",
+    "console",
+    "hierarchy"
+  ],
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "scripts": {
+    "build": "gulp",
+    "publish:patch": "npm version patch && npm run build && cd ./dist && npm publish",
+    "publish:minor": "npm version minor && npm run build && cd ./dist && npm publish",
+    "publish:major": "npm version major && npm run build && cd ./dist && npm publish"
+  },
+  "dependencies": {
+    "@flashist/flibs": "0.x"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-shell": "^0.8.0",
+    "pixi.js": "^5.3.3",
+    "require-dir": "^1.2.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.0.2"
+  }
+}
