@@ -20,7 +20,7 @@ Bunch* of useful debug tools for speeding up development process of [Pixi.js](ht
 ### Hierarchy
 ![Display List Inspector - Hierarchy](https://github.com/flashist/flashist.github.io/blob/master/fexamples/images/demo/display-list-inspector_hierarchy.gif?raw=true)
 
-####How to:
+#### How to:
 1. Open the console by inputting a password (default is **`**). In the [demo](https://flashist.github.io/fexamples/) the console is shown from the beginning.
 2. Click on the **DL** button.
 3. Move cursor over some visual elements.
@@ -28,7 +28,7 @@ Bunch* of useful debug tools for speeding up development process of [Pixi.js](ht
 ### Properties Editing
 ![Display List Inspector - Editing](https://github.com/flashist/flashist.github.io/blob/master/fexamples/images/demo/display-list-inspector_editing.gif?raw=true)
 
-####How to:
+#### How to:
 1. Assing a capture key to the Display List popup (click to the **Capture key** button and press a key).
 2. Move cursor over some visual elements.
 3. Press the assinged key (see #1).
@@ -40,7 +40,7 @@ Bunch* of useful debug tools for speeding up development process of [Pixi.js](ht
 ### Additional Information
 ![Display List Inspector - Editing](https://github.com/flashist/flashist.github.io/blob/master/fexamples/images/demo/display-list-inspector_additional-info.gif?raw=true)
 
-####How to:
+#### How to:
 1. Click on the **Additional Info** button.
 2. Move cursor over some visual elements.
 3. Check the additional information next to the hierarchy visual elements.
@@ -49,7 +49,7 @@ Bunch* of useful debug tools for speeding up development process of [Pixi.js](ht
 ### Move Helper
 ![Display List Inspector - Editing](https://github.com/flashist/flashist.github.io/blob/master/fexamples/images/demo/display-list-inspector_move-helper.gif?raw=true)
 
-####How to:
+#### How to:
 1. Click on the **Move Helper** button.
 2. Move cursor over some visual elements.
 3. Press the **CTRL** button.
