@@ -7,8 +7,7 @@ import {
     Point,
     DisplayObjectContainer,
     DisplayTools,
-    FContainer,
-    Ticker
+    FContainer
 } from "@flashist/flibs";
 
 import { ConsoleView } from "./view/ConsoleView";
@@ -90,7 +89,7 @@ export class FC {
             }
         );
 
-        Ticker.shared.add(FC.onTicker);
+        FApp.instance.ticker.add(FC.onTicker);
 
         FC.root = root;
         FC.visible = FC.config.console.defaultVisible;

@@ -12,8 +12,7 @@ import {
     DisplayTools,
     InputManager,
     InputManagerEvent,
-    InputManagerEventData,
-    Ticker
+    InputManagerEventData
 } from "@flashist/flibs";
 
 import { DisplayListItemView } from "./DisplayListItemView";
@@ -176,7 +175,7 @@ export class DisplayListView extends BaseConsoleView {
             TickerEvent.TICK,
             this.onTick
         );*/
-        Ticker.shared.add(this.onTick, this);
+        FApp.instance.ticker.add(this.onTick, this);
 
         this.eventListenerHelper.addEventListener(
             this.closeBtn.view,
@@ -212,7 +211,7 @@ export class DisplayListView extends BaseConsoleView {
     protected removeListeners(): void {
         super.removeListeners();
 
-        Ticker.shared.remove(this.onTick, this);
+        FApp.instance.ticker.remove(this.onTick, this);
     }
 
     private onTick(): void {
