@@ -1,4 +1,4 @@
-import {EventListenerHelper, KeyboardTools, Logger, ObjectTools} from "@flashist/fcore";
+import { EventListenerHelper, KeyboardTools, Logger, ObjectTools } from "@flashist/fcore";
 import {
     InputManager,
     InputManagerEvent,
@@ -7,16 +7,17 @@ import {
     Point,
     DisplayObjectContainer,
     DisplayTools,
-    FContainer
+    FContainer,
+    Ticker
 } from "@flashist/flibs";
 
-import {ConsoleView} from "./view/ConsoleView";
-import {BaseConsoleView} from "./view/BaseConsoleView";
-import {Config} from "./Config";
-import {TooltipManager} from "../tooltip/TooltipManager";
-import {ConsoleTooltip} from "./view/tooltip/ConsoleTooltip";
-import {ConsoleContentContainer} from "./view/ConsoleContentContainer";
-import {DisplayListView} from "./view/displaylist/DisplayListView";
+import { ConsoleView } from "./view/ConsoleView";
+import { BaseConsoleView } from "./view/BaseConsoleView";
+import { Config } from "./Config";
+import { TooltipManager } from "../tooltip/TooltipManager";
+import { ConsoleTooltip } from "./view/tooltip/ConsoleTooltip";
+import { ConsoleContentContainer } from "./view/ConsoleContentContainer";
+import { DisplayListView } from "./view/displaylist/DisplayListView";
 
 export class FC {
     private static eventListenerHelper: EventListenerHelper;
@@ -89,7 +90,7 @@ export class FC {
             }
         );
 
-        FApp.instance.ticker.add(FC.onTicker);
+        Ticker.shared.add(FC.onTicker);
 
         FC.root = root;
         FC.visible = FC.config.console.defaultVisible;

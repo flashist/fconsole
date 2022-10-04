@@ -1,8 +1,8 @@
-import {BaseObject} from "@flashist/fcore";
-import {DisplayObjectContainer, Point, FApp, FContainer} from "@flashist/flibs";
+import { BaseObject } from "@flashist/fcore";
+import { DisplayObjectContainer, Point, FApp, FContainer, Ticker } from "@flashist/flibs";
 
-import {BaseTooltip} from "./BaseTooltip";
-import {ITooltipData} from "./ITooltipData";
+import { BaseTooltip } from "./BaseTooltip";
+import { ITooltipData } from "./ITooltipData";
 
 export class TooltipManager extends BaseObject {
 
@@ -36,13 +36,13 @@ export class TooltipManager extends BaseObject {
     protected addListeners(): void {
         super.addListeners();
 
-        FApp.instance.ticker.add(this.onTick, this);
+        Ticker.shared.add(this.onTick, this);
     }
 
     protected removeListeners(): void {
         super.removeListeners();
 
-        FApp.instance.ticker.remove(this.onTick, this);
+        Ticker.shared.remove(this.onTick, this);
     }
 
     private onTick(): void {

@@ -1,4 +1,4 @@
-import {ObjectsPool, ObjectTools} from "@flashist/fcore";
+import { ObjectsPool, ObjectTools } from "@flashist/fcore";
 import {
     FLabel,
     Point,
@@ -12,15 +12,16 @@ import {
     DisplayTools,
     InputManager,
     InputManagerEvent,
-    InputManagerEventData
+    InputManagerEventData,
+    Ticker
 } from "@flashist/flibs";
 
-import {DisplayListItemView} from "./DisplayListItemView";
-import {BaseConsoleView} from "../BaseConsoleView";
-import {BaseConsoleButton} from "../BaseConsoleButton";
-import {PauseKeyButton} from "../pause/PauseKeyButton";
-import {FC} from "../../FC";
-import {ConsoleContentContainer} from "../ConsoleContentContainer";
+import { DisplayListItemView } from "./DisplayListItemView";
+import { BaseConsoleView } from "../BaseConsoleView";
+import { BaseConsoleButton } from "../BaseConsoleButton";
+import { PauseKeyButton } from "../pause/PauseKeyButton";
+import { FC } from "../../FC";
+import { ConsoleContentContainer } from "../ConsoleContentContainer";
 
 export class DisplayListView extends BaseConsoleView {
 
@@ -83,7 +84,7 @@ export class DisplayListView extends BaseConsoleView {
         this.insideContentCont.addChild(this.pauseKeyBtn.view);
         this.pauseKeyBtn.view.y = 5;
         //
-        this.pauseKeyBtn.tooltipData = {title: FC.config.localization.pauseUpdateKeyBtnTooltipTitle};
+        this.pauseKeyBtn.tooltipData = { title: FC.config.localization.pauseUpdateKeyBtnTooltipTitle };
 
         this.ignoreConsoleBtn = new BaseConsoleButton();
         this.insideContentCont.addChild(this.ignoreConsoleBtn.view);
@@ -136,7 +137,7 @@ export class DisplayListView extends BaseConsoleView {
 
         this.closeBtn = this.createTitleBtn(
             FC.config.localization.closeBtnLabel,
-            {title: FC.config.localization.closeBtnTooltipTitle}
+            { title: FC.config.localization.closeBtnTooltipTitle }
         );
 
         this.captureKeyBtn.tooltipData.text = FC.config.localization.captureKeyBtnTooltipText;
@@ -175,7 +176,7 @@ export class DisplayListView extends BaseConsoleView {
             TickerEvent.TICK,
             this.onTick
         );*/
-        FApp.instance.ticker.add(this.onTick, this);
+        Ticker.shared.add(this.onTick, this);
 
         this.eventListenerHelper.addEventListener(
             this.closeBtn.view,
@@ -211,7 +212,7 @@ export class DisplayListView extends BaseConsoleView {
     protected removeListeners(): void {
         super.removeListeners();
 
-        FApp.instance.ticker.remove(this.onTick, this);
+        Ticker.shared.remove(this.onTick, this);
     }
 
     private onTick(): void {

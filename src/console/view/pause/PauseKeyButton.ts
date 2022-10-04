@@ -1,8 +1,8 @@
-import {BaseConsoleButton} from "../BaseConsoleButton";
-import {FApp, InputManager, InputManagerEvent, InputManagerEventData} from "@flashist/flibs";
-import {StringTools} from "@flashist/fcore";
+import { BaseConsoleButton } from "../BaseConsoleButton";
+import { FApp, InputManager, InputManagerEvent, InputManagerEventData, Ticker } from "@flashist/flibs";
+import { StringTools } from "@flashist/fcore";
 
-import {FC} from "../../FC";
+import { FC } from "../../FC";
 
 export class PauseKeyButton extends BaseConsoleButton {
 
@@ -21,7 +21,7 @@ export class PauseKeyButton extends BaseConsoleButton {
             this.onKeyUp
         );
 
-        FApp.instance.ticker.add(this.onTick, this);
+        Ticker.shared.add(this.onTick, this);
     }
 
     protected onTick(): void {
