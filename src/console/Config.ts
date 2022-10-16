@@ -1,4 +1,4 @@
-import {KeyCodes} from "@flashist/flibs";
+import { KeyCodes } from "@flashist/flibs";
 
 export class Config {
 
@@ -40,6 +40,11 @@ export class Config {
         additionalInfoBtnTooltipTitle: "Additional visual objects info",
         additionalInfoBtnTooltipText: "Position, width, height, etc. (configurable)",
 
+        visualControlsBtnNormalLabel: "Visual Controls: off",
+        visualControlsBtnPressedLabel: "Visual Controls: on",
+        visualControlsBtnTooltipTitle: "Visual Controls",
+        visualControlsBtnTooltipText: "Click on object to switch visibility of objects",
+
         ignorelInfoBtnNormalLabel: "Ignore Console: off",
         ignoreInfoBtnPressedLabel: "Ignore Console: on",
         ignoreInfoBtnTooltipTitle: "Ignore console classes",
@@ -68,7 +73,7 @@ export class Config {
     public viewSettings = {
         bgColor: 0x000000,
         bgAlpha: 0.75,
-        bgToContentShift: {x: 10, y: 10},
+        bgToContentShift: { x: 10, y: 10 },
 
         borderWidth: 1,
         borderColor: 0x660000,
@@ -88,6 +93,7 @@ export class Config {
 
         defaultIgnoreConsoleEnabled: true,
         defaultAdditionalInfoEnabled: false,
+        defaultVisualControlsEnabled: false,
         defaultMoveHelperEnabled: false,
 
         hierarchyLabelColor: 0xCCCCCC,
@@ -96,10 +102,10 @@ export class Config {
 
         nameParamName: "name",
         additionalInfoParams: {
-            "x": {toFixed: 2},
-            "y": {toFixed: 2},
-            "width": {visualName: "w", toFixed: 2},
-            "height": {visualName: "h", toFixed: 2}
+            "x": { toFixed: 2 },
+            "y": { toFixed: 2 },
+            "width": { visualName: "w", toFixed: 2 },
+            "height": { visualName: "h", toFixed: 2 }
         },
 
         globalVarPoolId: "fconsole_globalVarPool",
@@ -109,7 +115,7 @@ export class Config {
     public tooltipSettings = {
         bgColor: 0x000000,
         bgAlpha: 0.75,
-        bgToContentShift: {x: 10, y: 10},
+        bgToContentShift: { x: 10, y: 10 },
 
         borderWidth: 1,
         borderColor: 0x660000,

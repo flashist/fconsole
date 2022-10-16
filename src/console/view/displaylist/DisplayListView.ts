@@ -50,6 +50,9 @@ export class DisplayListView extends BaseConsoleView {
     protected additionalInfoBtn: BaseConsoleButton;
     private _isAdditionalInfoEnabled: boolean;
 
+    protected visualControlsBtn: BaseConsoleButton;
+    private _isVisualControlsEnabled: boolean;
+
     protected moveHelperBtn: BaseConsoleButton;
     private _isMoveHelperEnabled: boolean;
     private moveObject: DisplayObject;
@@ -105,6 +108,16 @@ export class DisplayListView extends BaseConsoleView {
         //
         this.additionalInfoBtn.view.y = this.ignoreConsoleBtn.view.y + this.ignoreConsoleBtn.view.height;
 
+        this.visualControlsBtn = new BaseConsoleButton();
+        this.insideContentCont.addChild(this.visualControlsBtn.view);
+        this.visualControlsBtn.tooltipData = {
+            title: FC.config.localization.visualControlsBtnTooltipTitle,
+            text: FC.config.localization.visualControlsBtnTooltipText
+        };
+        this.visualControlsBtn.field.size = FC.config.btnSettings.smallSize;
+        //
+        this.visualControlsBtn.view.y = this.additionalInfoBtn.view.y + this.additionalInfoBtn.view.height;
+
         this.moveHelperBtn = new BaseConsoleButton();
         this.insideContentCont.addChild(this.moveHelperBtn.view);
         this.moveHelperBtn.tooltipData = {
@@ -113,7 +126,7 @@ export class DisplayListView extends BaseConsoleView {
         };
         this.moveHelperBtn.field.size = FC.config.btnSettings.smallSize;
         //
-        this.moveHelperBtn.view.y = this.additionalInfoBtn.view.y + this.additionalInfoBtn.view.height;
+        this.moveHelperBtn.view.y = this.visualControlsBtn.view.y + this.visualControlsBtn.view.height;
 
         this.displayListField = new FLabel({
             autosize: true,
@@ -152,6 +165,7 @@ export class DisplayListView extends BaseConsoleView {
 
         this.isIgnoreConsoleEnabled = FC.config.displayListSettings.defaultIgnoreConsoleEnabled;
         this.isAdditionalInfoEnabled = FC.config.displayListSettings.defaultAdditionalInfoEnabled;
+        this.isVisualControlsEnabled = FC.config.displayListSettings.defaultVisualControlsEnabled;
         this.isMoveHelperEnabled = FC.config.displayListSettings.defaultMoveHelperEnabled;
     }
 
@@ -188,6 +202,13 @@ export class DisplayListView extends BaseConsoleView {
             InteractiveEvent.TAP,
             this.onAdditionalInfo
         );
+
+        this.eventListenerHelper.addEventListener(
+            this.visualControlsBtn.view,
+            InteractiveEvent.TAP,
+            this.onVisualControls
+        );
+
 
         this.eventListenerHelper.addEventListener(
             this.ignoreConsoleBtn.view,
@@ -270,6 +291,10 @@ export class DisplayListView extends BaseConsoleView {
 
     protected onAdditionalInfo(): void {
         this.isAdditionalInfoEnabled = !this.isAdditionalInfoEnabled;
+    }
+
+    protected onVisualControls(): void {
+        this.isVisualControlsEnabled = !this.isVisualControlsEnabled;
     }
 
     protected onMoveHelper(): void {
@@ -463,6 +488,7 @@ export class DisplayListView extends BaseConsoleView {
             let tempItem: DisplayListItemView = this.displayListItemsPool.getObject(DisplayListItemView);
             tempItem.data = data;
             tempItem.text = tempItemText;
+            tempItem.isVisualControlsEnabled = this.isVisualControlsEnabled;
             //
             result.push(tempItem);
 
@@ -574,6 +600,20 @@ export class DisplayListView extends BaseConsoleView {
         this.commitData();
     }
 
+    get isVisualControlsEnabled(): boolean {
+        return this._isVisualControlsEnabled;
+    }
+
+    set isVisualControlsEnabled(value: boolean) {
+        if (value == this._isVisualControlsEnabled) {
+            return;
+        }
+
+        this._isVisualControlsEnabled = value;
+
+        this.commitData();
+    }
+
 
     get isMoveHelperEnabled(): boolean {
         return this._isMoveHelperEnabled;
@@ -611,6 +651,7 @@ export class DisplayListView extends BaseConsoleView {
         if (!this.visible) {
             this.isAdditionalInfoEnabled = false;
             this.isMoveHelperEnabled = false;
+            this.isVisualControlsEnabled = false;
         }
 
         if (this.pauseKeyBtn) {
@@ -630,6 +671,14 @@ export class DisplayListView extends BaseConsoleView {
                 this.additionalInfoBtn.text = FC.config.localization.additionalInfoBtnPressedLabel;
             } else {
                 this.additionalInfoBtn.text = FC.config.localization.additionalInfoBtnNormalLabel;
+            }
+        }
+
+        if (this.visualControlsBtn) {
+            if (this.isVisualControlsEnabled) {
+                this.visualControlsBtn.text = FC.config.localization.visualControlsBtnPressedLabel;
+            } else {
+                this.visualControlsBtn.text = FC.config.localization.visualControlsBtnNormalLabel;
             }
         }
 
