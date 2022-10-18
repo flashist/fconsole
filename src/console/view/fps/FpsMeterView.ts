@@ -17,20 +17,17 @@ export class FpsMeterView extends FContainer {
     protected construction(...args): void {
         super.construction(args);
 
-        // TEST
-        const fspSettings = FC.config.fpsSettings;
-
         this.border = new Graphics();
         this.addChild(this.border);
         //
-        this.border.beginFill(0x000000, 0);
-        // this.border.lineStyle(1, FC.config.fpsSettings.borderColor);
+        this.border.beginFill(0x000000, 0.5);
         this.border.drawRect(
             0,
             0,
             FC.config.fpsSettings.borderWidth,
             FC.config.fpsSettings.borderHeight
         );
+        this.border.alpha = 0;
 
         this.field = new FLabel({
             color: FC.config.fpsSettings.labelColor,
