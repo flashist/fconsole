@@ -17,6 +17,9 @@ export class FpsMeterView extends FContainer {
     protected construction(...args): void {
         super.construction(args);
 
+        // TEST
+        const fspSettings = FC.config.fpsSettings;
+
         this.border = new Graphics();
         this.addChild(this.border);
         //
