@@ -1,6 +1,6 @@
-import {StringTools} from "@flashist/fcore";
-import {FContainer, FLabel, Graphics} from "@flashist/flibs";
-import {FC} from "../../FC";
+import { StringTools } from "@flashist/fcore";
+import { FContainer, FLabel, Graphics } from "@flashist/flibs";
+import { FC } from "../../FC";
 
 export class FpsMeterView extends FContainer {
 
@@ -30,7 +30,6 @@ export class FpsMeterView extends FContainer {
         );
 
         this.field = new FLabel({
-            autosize: true,
             color: FC.config.fpsSettings.labelColor,
             size: FC.config.fpsSettings.labelSize
         });
