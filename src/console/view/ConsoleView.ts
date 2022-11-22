@@ -31,7 +31,8 @@ export class ConsoleView extends BaseConsoleView {
             for (let singleCustomBtnConfig of FC.config.customBtns) {
                 this.createTitleBtn(
                     singleCustomBtnConfig.label,
-                    { title: singleCustomBtnConfig.tooltip }
+                    { title: singleCustomBtnConfig.tooltip },
+                    singleCustomBtnConfig
                 );
             }
         }
