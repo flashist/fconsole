@@ -1,11 +1,11 @@
-import {BaseObject} from "@flashist/fcore";
-import {InteractiveEvent, DisplayObjectContainer, Graphics, FLabel, DragHelper, DragHelperEvent, FContainer} from "@flashist/flibs";
+import { BaseObject } from "@flashist/fcore";
+import { InteractiveEvent, DisplayObjectContainer, Graphics, FLabel, DragHelper, DragHelperEvent, FContainer } from "@flashist/flibs";
 
-import {FC} from "../FC";
-import {BaseConsoleButton} from "./BaseConsoleButton";
-import {CaptureKeyButton} from "./capture/CaptureKeyButton";
-import {CaptureKeyButtonEvent} from "./capture/CaptureKeyButtonEvent";
-import {ITooltipData} from "../../tooltip/ITooltipData";
+import { FC } from "../FC";
+import { BaseConsoleButton } from "./BaseConsoleButton";
+import { CaptureKeyButton } from "./capture/CaptureKeyButton";
+import { CaptureKeyButtonEvent } from "./capture/CaptureKeyButtonEvent";
+import { ITooltipData } from "../../tooltip/ITooltipData";
 
 export class BaseConsoleView extends BaseObject {
 
@@ -36,6 +36,8 @@ export class BaseConsoleView extends BaseObject {
     public lastBgWidth: number = 0;
     public lastBgHeight: number = 0;
 
+    protected titleBtns: BaseConsoleButton[];
+
     protected construction(): void {
         super.construction();
 
@@ -45,6 +47,7 @@ export class BaseConsoleView extends BaseObject {
         this._captureVisible = false;
 
         this.topLevelElements = [];
+        this.titleBtns = [];
 
         this.view = new FContainer();
 
@@ -77,14 +80,14 @@ export class BaseConsoleView extends BaseObject {
         this.titleCont.addChild(this.captureClickBtn.view);
         this.captureClickBtn.view.y = this.titleLabel.y + this.titleLabel.height + 10;
         //
-        this.captureClickBtn.tooltipData = {title: FC.config.localization.captureClickBtnTooltip};
+        this.captureClickBtn.tooltipData = { title: FC.config.localization.captureClickBtnTooltip };
         this.captureClickBtn.text = FC.config.localization.captureClickBtnLabel;
 
         this.captureKeyBtn = new CaptureKeyButton();
         this.titleCont.addChild(this.captureKeyBtn.view);
         this.captureKeyBtn.view.y = this.captureClickBtn.view.y + this.captureClickBtn.view.height;
         //
-        this.captureKeyBtn.tooltipData = {title: FC.config.localization.captureKeyBtnTooltipTitle};
+        this.captureKeyBtn.tooltipData = { title: FC.config.localization.captureKeyBtnTooltipTitle };
 
         this.insideContentCont = new FContainer();
         this.contentCont.addChild(this.insideContentCont);
@@ -110,7 +113,6 @@ export class BaseConsoleView extends BaseObject {
             CaptureKeyButtonEvent.CAPTURE_KEY_PRESS,
             this.onCapture
         );
-
 
         this.eventListenerHelper.addEventListener(
             this.captureClickBtn.view,
@@ -215,10 +217,13 @@ export class BaseConsoleView extends BaseObject {
         this.contentCont.y = this.bgGraphics.y + ((this.bgGraphics.height - this.contentCont.height) >> 1);
     }
 
-    protected createTitleBtn(label: string, tooltipData?: ITooltipData): BaseConsoleButton {
+    protected createTitleBtn(label: string, tooltipData?: ITooltipData, data?: any): BaseConsoleButton {
         let tempBtn = new BaseConsoleButton();
         tempBtn.text = label;
         tempBtn.tooltipData = tooltipData;
+        tempBtn.data = data;
+
+        this.titleBtns.push(tempBtn);
 
         this.addTitleElement(tempBtn.view);
 

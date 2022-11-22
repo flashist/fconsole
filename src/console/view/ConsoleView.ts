@@ -1,8 +1,10 @@
-import {BaseConsoleView} from "./BaseConsoleView";
-import {FC} from "../FC";
-import {BaseConsoleButton} from "./BaseConsoleButton";
-import {InteractiveEvent} from "@flashist/flibs";
-import {FpsMeterView} from "./fps/FpsMeterView";
+import { BaseConsoleView } from "./BaseConsoleView";
+import { FC } from "../FC";
+import { BaseConsoleButton } from "./BaseConsoleButton";
+import { InteractiveEvent } from "@flashist/flibs";
+import { FpsMeterView } from "./fps/FpsMeterView";
+import { IFConsoleCustomBtnConfigVO } from "../config/IFConsoleCustomBtnConfigVO";
+import { ConsoleViewEvent } from "./ConsoleViewEvent";
 
 export class ConsoleView extends BaseConsoleView {
 
@@ -27,8 +29,17 @@ export class ConsoleView extends BaseConsoleView {
 
         this.closeBtn = this.createTitleBtn(
             FC.config.localization.closeBtnLabel,
-            {title: FC.config.localization.closeBtnTooltipTitle}
+            { title: FC.config.localization.closeBtnTooltipTitle }
         );
+
+        if (FC.config.customBtns) {
+            for (let singleCustomBtnConfig of FC.config.customBtns) {
+                this.createTitleBtn(
+                    singleCustomBtnConfig.label,
+                    { title: singleCustomBtnConfig.tooltip }
+                );
+            }
+        }
     }
 
     protected addListeners(): void {
@@ -45,6 +56,23 @@ export class ConsoleView extends BaseConsoleView {
             InteractiveEvent.TAP,
             this.onClose
         );
+
+        const addSingleBtnHandler = (singleBtn: BaseConsoleButton) => {
+            this.eventListenerHelper.addEventListener(
+                singleBtn.view,
+                InteractiveEvent.TAP,
+                () => {
+                    const btnData: IFConsoleCustomBtnConfigVO = (singleBtn.data as IFConsoleCustomBtnConfigVO);
+                    if (btnData) {
+                        this.dispatchEvent(ConsoleViewEvent.CUSTOM_BTN_CLICK, btnData);
+                    }
+                }
+            );
+        };
+        for (let singleTitleBtn of this.titleBtns) {
+            // using separate function, to make sure correct data about buttons are passed into event handlers
+            addSingleBtnHandler(singleTitleBtn);
+        }
     }
 
 

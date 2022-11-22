@@ -1,5 +1,5 @@
 import { IFDisplayObjectUnderPointVO, InteractiveEvent, FContainer, DisplayObjectContainer, FLabel } from "@flashist/flibs";
-import { Config, FC, ITooltipData } from "../../..";
+import { FC, ITooltipData } from "../../..";
 import { GlobalVarTools } from "../../tools/GlobalVarTools";
 
 

@@ -1,4 +1,4 @@
-export * from './console/Config'
+export * from './console/config/DefaultFConsoneConfigVO'
 export * from './console/FC'
 export * from './console/view/BaseConsoleButton'
 export * from './console/view/BaseConsoleView'

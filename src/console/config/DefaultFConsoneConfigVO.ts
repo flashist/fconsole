@@ -1,6 +1,7 @@
 import { KeyCodes } from "@flashist/flibs";
+import { IFConsoleConfigVO } from "./IFConsoleConfigVO";
 
-export class Config {
+export class DefaultFConsoneConfigVO implements IFConsoleConfigVO {
 
     public password: string = "`";
 
@@ -138,4 +139,6 @@ export class Config {
         // Amount of separate fps values, which would be saved, to measure an average fps value
         cumulativeFpsCount: 60
     };
+
+    public customBtns: { label: string, tooltip: string }[] = [];
 }

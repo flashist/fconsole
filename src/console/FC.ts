@@ -12,11 +12,12 @@ import {
 
 import { ConsoleView } from "./view/ConsoleView";
 import { BaseConsoleView } from "./view/BaseConsoleView";
-import { Config } from "./Config";
 import { TooltipManager } from "../tooltip/TooltipManager";
 import { ConsoleTooltip } from "./view/tooltip/ConsoleTooltip";
 import { ConsoleContentContainer } from "./view/ConsoleContentContainer";
 import { DisplayListView } from "./view/displaylist/DisplayListView";
+import { DefaultFConsoneConfigVO } from "./config/DefaultFConsoneConfigVO";
+import { IFConsoleConfigVO } from "./config/IFConsoleConfigVO";
 
 export class FC {
     private static eventListenerHelper: EventListenerHelper;
@@ -29,17 +30,17 @@ export class FC {
     // private static password: string = "";
     private static passwordInputIndex: number = 0;
 
-    public static config: Config;
+    public static config: IFConsoleConfigVO;
     public static tooltipManager: TooltipManager;
 
     public static view: ConsoleView;
     public static displayListView: DisplayListView;
 
-    static startInit(root?: DisplayObjectContainer, configChanges?: any | Partial<Config>): void {
+    static startInit(root?: DisplayObjectContainer, configChanges?: Partial<IFConsoleConfigVO>): void {
 
-        Logger.log("CC: ", FC);
+        Logger.log("FConsole Class (FC): ", FC);
 
-        const config: Config = new Config();
+        const config: IFConsoleConfigVO = new DefaultFConsoneConfigVO();
         if (configChanges) {
             ObjectTools.copyProps(config, configChanges);
         }
