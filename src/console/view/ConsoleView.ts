@@ -27,11 +27,6 @@ export class ConsoleView extends BaseConsoleView {
 
         this.addTitleElement(new FpsMeterView());
 
-        this.closeBtn = this.createTitleBtn(
-            FC.config.localization.closeBtnLabel,
-            { title: FC.config.localization.closeBtnTooltipTitle }
-        );
-
         if (FC.config.customBtns) {
             for (let singleCustomBtnConfig of FC.config.customBtns) {
                 this.createTitleBtn(
@@ -40,6 +35,11 @@ export class ConsoleView extends BaseConsoleView {
                 );
             }
         }
+
+        this.closeBtn = this.createTitleBtn(
+            FC.config.localization.closeBtnLabel,
+            { title: FC.config.localization.closeBtnTooltipTitle }
+        );
     }
 
     protected addListeners(): void {
