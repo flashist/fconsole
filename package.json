@@ -27,12 +27,12 @@
   "typings": "index.d.ts",
   "scripts": {},
   "dependencies": {
-    "@flashist/flibs": "0.x",
-    "pixi.js": "6.x"
+    "@flashist/flibs": "0.x"
   },
   "devDependencies": {
     "@flashist/fbuildscripts": "0.x",
-    "typescript": "^4.0.2"
+    "typescript": "^4.0.2",
+    "pixi.js": "6.x"
   },
   "bugs": {
     "url": "https://github.com/flashist/fconsole/issues"

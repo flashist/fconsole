@@ -1,4 +1,4 @@
-import {BaseObject} from "@flashist/fcore";
+import { BaseObject } from "@flashist/fcore";
 import {
     DisplayObjectContainer,
     FLabel,
@@ -6,8 +6,8 @@ import {
     FContainer
 } from "@flashist/flibs";
 
-import {FC} from "../FC";
-import {ITooltipData} from "../../tooltip/ITooltipData";
+import { FC } from "../FC";
+import { ITooltipData } from "../../tooltip/ITooltipData";
 
 export class BaseConsoleButton extends BaseObject {
 
