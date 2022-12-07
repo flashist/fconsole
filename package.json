@@ -26,20 +26,13 @@
   "main": "index.js",
   "typings": "index.d.ts",
   "scripts": {
-    "build": "gulp",
-    "publish:patch": "npm version patch && npm run build && cd ./dist && npm publish",
-    "publish:minor": "npm version minor && npm run build && cd ./dist && npm publish",
-    "publish:major": "npm version major && npm run build && cd ./dist && npm publish"
   },
   "dependencies": {
-    "@flashist/flibs": "0.x"
+    "@flashist/flibs": "0.x",
+    "pixi.js": "6.x"
   },
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-shell": "^0.8.0",
-    "pixi.js": "^5.3.3",
-    "require-dir": "^1.2.0",
-    "rimraf": "^3.0.2",
+    "@flashist/fbuildscripts": "0.x",
     "typescript": "^4.0.2"
   },
   "bugs": {

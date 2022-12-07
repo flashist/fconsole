@@ -1,22 +1,11 @@
 var gulp = require("gulp");
-var requireDir = require("require-dir");
+var fbuildscripts = require("@flashist/fbuildscripts");
 
-var tasks = requireDir("./gulp/tasks");
-
-gulp.task(
-    'build',
-    gulp.series(
-        "clean",
-        // "generate-definitions",
-        "copy-to-dist",
-        "compile"
-    )
-);
-
-// Default
-gulp.task(
-    "default",
-    gulp.series(
-        "build"
-    )
-);
+// Importing all the build-scripts
+var taskNames = Object.keys(fbuildscripts);
+console.log("task names: ", taskNames);
+var taskNamesCount = taskNames.length;
+for (let taskNameIndex = 0; taskNameIndex < taskNamesCount; taskNameIndex++) {
+    var tempTaskName = taskNames[taskNameIndex];
+    gulp[tempTaskName] = tasks[tempTaskName];
+}
