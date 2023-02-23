@@ -1,4 +1,4 @@
-import { StringTools } from "@flashist/fcore";
+import { StringTools, NumberTools } from "@flashist/fcore";
 import { FContainer, FLabel, Graphics } from "@flashist/flibs";
 import { FC } from "../../FC";
 
@@ -55,7 +55,7 @@ export class FpsMeterView extends FContainer {
 
         this.time = Date.now();
         let delta: number = this.time - this.prevTime;
-        this.stepFps = Math.floor(1000 / delta);
+        this.stepFps = NumberTools.roundTo(1000 / delta, 0.1);
 
         if (this.fpsValues.length >= FC.config.fpsSettings.cumulativeFpsCount) {
             let lastFps: number = this.fpsValues.shift();
