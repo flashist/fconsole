@@ -27,7 +27,7 @@ export class BaseConsoleButton extends BaseObject {
 
         this.view = new FContainer();
         this.view.interactive = true;
-        this.view.buttonMode = true;
+        this.view.cursor = 'pointer';
 
         this.field = new FLabel({
             autosize: true,

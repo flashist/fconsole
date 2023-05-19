@@ -24,7 +24,7 @@ export class DisplayListItemView extends FContainer<IFDisplayObjectUnderPointVO>
         this.contentCont = new FContainer();
         this.addChild(this.contentCont);
         this.contentCont.interactive = true;
-        this.contentCont.buttonMode = true;
+        this.contentCont.cursor = 'pointer';
 
         this.field = new FLabel({
             autosize: true,
