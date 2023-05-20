@@ -30,7 +30,7 @@
     "@flashist/flibs": "0.x"
   },
   "devDependencies": {
-    "@flashist/fbuildscripts": "0.0.38",
+    "@flashist/fbuildscripts": "0.x",
     "pixi.js": "7.x",
     "typescript": "^4.9.4"
   },
