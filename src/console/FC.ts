@@ -76,7 +76,7 @@ export class FC {
             InputManagerEvent.KEY_DOWN,
             (data: InputManagerEventData): void => {
                 let pressedKey: string = data.nativeKeyboardEvent.key;
-                if (pressedKey.toUpperCase() === FC.config.password.charAt(FC.passwordInputIndex).toUpperCase()) {
+                if (pressedKey && pressedKey.toUpperCase() === FC.config.password.charAt(FC.passwordInputIndex).toUpperCase()) {
                     FC.passwordInputIndex++;
 
                     if (FC.passwordInputIndex >= FC.config.password.length) {
