@@ -202,14 +202,16 @@ export class BaseConsoleView extends BaseObject {
             this.lastBgHeight = tempHeight;
 
             this.bgGraphics.clear();
-            this.bgGraphics.beginFill(FC.config.viewSettings.bgColor, FC.config.viewSettings.bgAlpha);
-            this.bgGraphics.lineStyle(FC.config.viewSettings.borderWidth, FC.config.viewSettings.borderColor, FC.config.viewSettings.borderAlpha);
-            this.bgGraphics.drawRect(
+            //
+            this.bgGraphics.rect(
                 0,
                 0,
                 tempWidth,
                 tempHeight
             );
+            this.bgGraphics.setStrokeStyle({ width: FC.config.viewSettings.borderWidth, color: FC.config.viewSettings.borderColor, alpha: FC.config.viewSettings.borderAlpha });
+            this.bgGraphics.fill({ color: FC.config.viewSettings.bgColor, alpha: FC.config.viewSettings.bgAlpha });
+
             this.bgGraphics.endFill();
         }
 

@@ -20,13 +20,14 @@ export class FpsMeterView extends FContainer {
         this.border = new Graphics();
         this.addChild(this.border);
         //
-        this.border.beginFill(0x000000, 0.5);
-        this.border.drawRect(
+        this.border.rect(
             0,
             0,
             FC.config.fpsSettings.borderWidth,
             FC.config.fpsSettings.borderHeight
         );
+        this.border.fill({ color: 0x000000, alpha: 0.5 });
+
         this.border.alpha = 0;
 
         this.field = new FLabel({

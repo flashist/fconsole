@@ -5,22 +5,22 @@ import {
     Align,
     FContainer
 } from "@flashist/flibs";
-import {BaseTooltip} from "../../../tooltip/BaseTooltip";
-import {FC} from "../../FC";
+import { BaseTooltip } from "../../../tooltip/BaseTooltip";
+import { FC } from "../../FC";
 
 export class ConsoleTooltip extends BaseTooltip {
 
-    private contentCont:DisplayObjectContainer;
-    private titleLabel:FLabel;
-    private textLabel:FLabel;
+    private contentCont: DisplayObjectContainer;
+    private titleLabel: FLabel;
+    private textLabel: FLabel;
 
-    private bg:Graphics;
+    private bg: Graphics;
 
     constructor() {
         super();
     }
 
-    protected construction():void {
+    protected construction(): void {
         super.construction();
 
         this.bg = new Graphics();
@@ -47,7 +47,7 @@ export class ConsoleTooltip extends BaseTooltip {
     }
 
 
-    protected commitData():void {
+    protected commitData(): void {
         super.commitData();
 
         if (!this.tooltipData) {
@@ -66,11 +66,11 @@ export class ConsoleTooltip extends BaseTooltip {
         this.arrange();
     }
 
-    protected arrange():void {
+    protected arrange(): void {
         super.arrange();
 
         if (this.textLabel.visible) {
-            let labelMaxWidth:number = Math.max(this.titleLabel.width, this.textLabel.width);
+            let labelMaxWidth: number = Math.max(this.titleLabel.width, this.textLabel.width);
             this.titleLabel.x = ((labelMaxWidth - this.titleLabel.width) >> 1);
 
             this.textLabel.x = ((labelMaxWidth - this.textLabel.width) >> 1);
@@ -81,19 +81,22 @@ export class ConsoleTooltip extends BaseTooltip {
         }
 
         this.bg.clear();
-        this.bg.beginFill(FC.config.tooltipSettings.bgColor, FC.config.tooltipSettings.bgAlpha);
-        this.bg.lineStyle(
-            FC.config.tooltipSettings.borderWidth,
-            FC.config.tooltipSettings.borderColor,
-            FC.config.tooltipSettings.borderAlpha
-        );
-        this.bg.drawRect(
+        //
+        this.bg.rect(
             0,
             0,
             this.contentCont.width + FC.config.tooltipSettings.bgToContentShift.x,
             this.contentCont.height + FC.config.tooltipSettings.bgToContentShift.y
         );
-        this.bg.endFill();
+        this.bg.setStrokeStyle(
+            {
+                width: FC.config.tooltipSettings.borderWidth,
+                color: FC.config.tooltipSettings.borderColor,
+                alpha: FC.config.tooltipSettings.borderAlpha
+            }
+        );
+        this.bg.fill({ color: FC.config.tooltipSettings.bgColor, alpha: FC.config.tooltipSettings.bgAlpha });
+        // this.bg.endFill();
 
         this.contentCont.x = this.bg.x + ((this.bg.width - this.contentCont.width) >> 1);
         this.contentCont.y = this.bg.y + ((this.bg.height - this.contentCont.height) >> 1);
