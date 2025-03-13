@@ -97,6 +97,10 @@ export class FC {
     }
 
     private static onTicker(): void {
+        if (!FC.visible) {
+            return;
+        }
+
         if (FC.config.console.aboveAll) {
             DisplayTools.moveObjectToTopLayer(FC.contentCont);
         }

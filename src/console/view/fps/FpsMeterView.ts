@@ -68,10 +68,12 @@ export class FpsMeterView extends FContainer {
             this.cumulativeFpsValue = 0;
         }
 
-        this.field.text = StringTools.substituteList(
-            FC.config.localization.fpsText,
-            Math.floor(this.cumulativeFpsValue / this.fpsValues.length)
-        );
+        if (this.visible) {
+            this.field.text = StringTools.substituteList(
+                FC.config.localization.fpsText,
+                Math.floor(this.cumulativeFpsValue / this.fpsValues.length)
+            );
+        }
 
         this.prevTime = this.time;
 
