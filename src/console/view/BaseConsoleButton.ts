@@ -14,16 +14,14 @@ export class BaseConsoleButton extends BaseObject {
     public view: DisplayObjectContainer;
     public field: FLabel;
 
-    private _text: string = "";
+    private _text: string;
 
     public tooltipData: ITooltipData;
 
-    constructor() {
-        super();
-    }
-
     protected construction(): void {
         super.construction();
+
+        this._text = "";
 
         this.view = new FContainer();
         this.view.interactive = true;
