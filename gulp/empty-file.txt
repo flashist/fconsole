@@ -1,0 +1,1 @@
+An empty file to commit empty folder into GIT.

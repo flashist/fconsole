@@ -31,8 +31,8 @@
   },
   "devDependencies": {
     "@flashist/fbuildscripts": "0.x",
-    "pixi.js": "7.x",
-    "typescript": "^4.9.4"
+    "pixi.js": "^8.8.1",
+    "typescript": "^5.8.2"
   },
   "bugs": {
     "url": "https://github.com/flashist/fconsole/issues"

@@ -1,8 +1,8 @@
-import {BaseConsoleButton} from "../BaseConsoleButton";
-import {InputManager, InputManagerEvent, InputManagerEventData} from "@flashist/flibs";
-import {KeyboardTools, StringTools} from "@flashist/fcore";
-import {CaptureKeyButtonEvent} from "./CaptureKeyButtonEvent";
-import {FC} from "../../FC";
+import { BaseConsoleButton } from "../BaseConsoleButton";
+import { InputManager, InputManagerEvent, InputManagerEventData } from "@flashist/flibs";
+import { KeyboardTools, StringTools } from "@flashist/fcore";
+import { CaptureKeyButtonEvent } from "./CaptureKeyButtonEvent";
+import { FC } from "../../FC";
 
 export class CaptureKeyButton extends BaseConsoleButton {
 
@@ -33,7 +33,7 @@ export class CaptureKeyButton extends BaseConsoleButton {
     }
 
     protected onKeyUp(data: InputManagerEventData): void {
-        if (this.view.worldVisible) {
+        if (this.view.visible) {
             if (this.isClicked) {
                 this.isClicked = false;
                 this.captureKey = data.nativeKeyboardEvent.key;

@@ -41,7 +41,7 @@ export class PauseKeyButton extends BaseConsoleButton {
     }
 
     protected onKeyUp(data: InputManagerEventData): void {
-        if (this.view.worldVisible) {
+        if (this.view.visible) {
             if (this.isClicked) {
                 this.isClicked = false;
                 this.pauseKey = data.nativeKeyboardEvent.key;

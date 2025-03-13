@@ -3,7 +3,7 @@ import {
     FLabel,
     Point,
     InteractiveEvent,
-    DisplayObject,
+    Container,
     KeyCodes,
     IFDisplayObjectUnderPointVO,
     FDisplayTools,
@@ -55,7 +55,7 @@ export class DisplayListView extends BaseConsoleView {
 
     protected moveHelperBtn: BaseConsoleButton;
     private _isMoveHelperEnabled: boolean;
-    private moveObject: DisplayObject;
+    private moveObject: Container;
     private prevMoveObject: any;
 
     private moveObjectIndex: number;
@@ -251,7 +251,7 @@ export class DisplayListView extends BaseConsoleView {
 
             let filter = null;
             if (this.isIgnoreConsoleEnabled) {
-                filter = (object: DisplayObject): boolean => {
+                filter = (object: Container): boolean => {
                     return !(object instanceof ConsoleContentContainer);
                 };
             }
