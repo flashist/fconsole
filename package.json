@@ -27,7 +27,7 @@
   "typings": "index.d.ts",
   "scripts": {},
   "dependencies": {
-    "@flashist/flibs": "^0.0.325"
+    "@flashist/flibs": "0.x"
   },
   "devDependencies": {
     "@flashist/fbuildscripts": "^0.0.48",
