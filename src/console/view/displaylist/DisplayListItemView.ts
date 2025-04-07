@@ -28,8 +28,10 @@ export class DisplayListItemView extends FContainer<IFDisplayObjectUnderPointVO>
 
         this.field = new FLabel({
             autosize: true,
-            color: FC.config.displayListSettings.hierarchyLabelColor,
-            size: FC.config.displayListSettings.hierarchyLabelSize
+            nativeTextStyle: {
+                fill: FC.config.displayListSettings.hierarchyLabelColor,
+                fontSize: FC.config.displayListSettings.hierarchyLabelSize
+            }
         });
         this.contentCont.addChild(this.field);
 
@@ -70,14 +72,14 @@ export class DisplayListItemView extends FContainer<IFDisplayObjectUnderPointVO>
 
     private onOver(): void {
         // this.contentCont.alpha = 1;
-        this.field.color = FC.config.displayListSettings.hierarchyLabelColorOver;
+        this.field.changeConfig({ nativeTextStyle: { fill: FC.config.displayListSettings.hierarchyLabelColorOver } });
 
         FC.tooltipManager.show(this.tooltipData);
     }
 
     private onOut(): void {
         // this.contentCont.alpha = 0.75;
-        this.field.color = FC.config.displayListSettings.hierarchyLabelColor;
+        this.field.changeConfig({ nativeTextStyle: { fill: FC.config.displayListSettings.hierarchyLabelColor } });
 
         FC.tooltipManager.hide();
     }

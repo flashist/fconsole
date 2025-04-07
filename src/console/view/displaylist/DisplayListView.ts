@@ -94,7 +94,7 @@ export class DisplayListView extends BaseConsoleView {
             title: FC.config.localization.ignoreInfoBtnTooltipTitle,
             text: FC.config.localization.ignoreInfoBtnTooltipText
         };
-        this.ignoreConsoleBtn.field.size = FC.config.btnSettings.smallSize;
+        this.ignoreConsoleBtn.field.changeConfig({ nativeTextStyle: { fontSize: FC.config.btnSettings.smallSize } });
         //
         this.ignoreConsoleBtn.view.y = this.pauseKeyBtn.view.y + this.pauseKeyBtn.view.height + 5;
 
@@ -104,7 +104,7 @@ export class DisplayListView extends BaseConsoleView {
             title: FC.config.localization.additionalInfoBtnTooltipTitle,
             text: FC.config.localization.additionalInfoBtnTooltipText
         };
-        this.additionalInfoBtn.field.size = FC.config.btnSettings.smallSize;
+        this.additionalInfoBtn.field.changeConfig({ nativeTextStyle: { fontSize: FC.config.btnSettings.smallSize } });
         //
         this.additionalInfoBtn.view.y = this.ignoreConsoleBtn.view.y + this.ignoreConsoleBtn.view.height;
 
@@ -114,7 +114,7 @@ export class DisplayListView extends BaseConsoleView {
             title: FC.config.localization.visualControlsBtnTooltipTitle,
             text: FC.config.localization.visualControlsBtnTooltipText
         };
-        this.visualControlsBtn.field.size = FC.config.btnSettings.smallSize;
+        this.visualControlsBtn.field.changeConfig({ nativeTextStyle: { fontSize: FC.config.btnSettings.smallSize } });
         //
         this.visualControlsBtn.view.y = this.additionalInfoBtn.view.y + this.additionalInfoBtn.view.height;
 
@@ -124,14 +124,16 @@ export class DisplayListView extends BaseConsoleView {
             title: FC.config.localization.moveHelperTooltipTitle,
             text: FC.config.localization.moveHelperTooltipText
         };
-        this.moveHelperBtn.field.size = FC.config.btnSettings.smallSize;
+        this.moveHelperBtn.field.changeConfig({ nativeTextStyle: { fontSize: FC.config.btnSettings.smallSize } });
         //
         this.moveHelperBtn.view.y = this.visualControlsBtn.view.y + this.visualControlsBtn.view.height;
 
         this.displayListField = new FLabel({
             autosize: true,
-            color: FC.config.displayListSettings.hierarchyLabelColor,
-            size: FC.config.displayListSettings.hierarchyLabelSize
+            nativeTextStyle: {
+                fill: FC.config.displayListSettings.hierarchyLabelColor,
+                fontSize: FC.config.displayListSettings.hierarchyLabelSize
+            }
         });
         this.insideContentCont.addChild(this.displayListField);
         //

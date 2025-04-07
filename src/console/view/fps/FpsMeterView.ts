@@ -31,8 +31,10 @@ export class FpsMeterView extends FContainer {
         this.border.alpha = 0;
 
         this.field = new FLabel({
-            color: FC.config.fpsSettings.labelColor,
-            size: FC.config.fpsSettings.labelSize
+            nativeTextStyle: {
+                fill: FC.config.fpsSettings.labelColor,
+                fontSize: FC.config.fpsSettings.labelSize
+            }
         });
         this.addChild(this.field);
         this.field.text = StringTools.substituteList(FC.config.localization.fpsText, "00");

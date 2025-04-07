@@ -67,8 +67,10 @@ export class BaseConsoleView extends BaseObject {
 
         this.titleLabel = new FLabel({
             autosize: true,
-            color: FC.config.viewSettings.titleLabelColor,
-            size: FC.config.viewSettings.titleLabelSize
+            nativeTextStyle: {
+                fill: FC.config.viewSettings.titleLabelColor,
+                fontSize: FC.config.viewSettings.titleLabelSize
+            }
         });
         this.titleCont.addChild(this.titleLabel);
         this.titleLabel.text = "Test Title";

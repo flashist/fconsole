@@ -31,17 +31,21 @@ export class ConsoleTooltip extends BaseTooltip {
 
         this.titleLabel = new FLabel({
             autosize: true,
-            color: FC.config.tooltipSettings.titleLabelColor,
-            size: FC.config.tooltipSettings.titleLabelSize,
-            align: Align.CENTER
+            nativeTextStyle: {
+                fill: FC.config.tooltipSettings.titleLabelColor,
+                fontSize: FC.config.tooltipSettings.titleLabelSize,
+                align: Align.CENTER
+            }
         });
         this.contentCont.addChild(this.titleLabel);
 
         this.textLabel = new FLabel({
             autosize: true,
-            color: FC.config.tooltipSettings.textLabelColor,
-            size: FC.config.tooltipSettings.textLabelSize,
-            align: Align.CENTER
+            nativeTextStyle: {
+                fill: FC.config.tooltipSettings.textLabelColor,
+                fontSize: FC.config.tooltipSettings.textLabelSize,
+                align: Align.CENTER
+            }
         });
         this.contentCont.addChild(this.textLabel);
     }
