@@ -27,11 +27,11 @@
   "typings": "index.d.ts",
   "scripts": {},
   "dependencies": {
-    "@flashist/fcore": "^0.0.185",
-    "@flashist/flibs": "^0.0.370"
+    "@flashist/fcore": "0.0.190",
+    "@flashist/flibs": "^0.0.373"
   },
   "devDependencies": {
-    "@flashist/fbuildscripts": "^0.0.60",
+    "@flashist/fbuildscripts": "^0.0.67",
     "pixi.js": "^8.8.1",
     "typescript": "^5.8.2"
   },
